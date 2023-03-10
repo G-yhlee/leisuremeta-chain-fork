@@ -37,19 +37,21 @@ object gen:
     .map(cell =>
       cell match
         case Cell.Image(nftUri) =>
-          plainStr(nftUri).contains("img") match
-            case true => // 이미지 포맷
-              img(
-                `class` := "nft-image p-10px",
-                src     := s"${getOptionValue(nftUri, "-").toString()}",
-              )
-
-            case _ => // 비디오 포맷
+          List("mp3", "mp4")
+            .map(data => plainStr(nftUri).contains(data))
+            .contains(true) match
+            case true => // 비디오 포맷
               video(`class` := "nft-image p-10px", autoPlay, loop)(
                 source(
                   src := s"${getOptionValue(nftUri, "-").toString()}",
                 ),
               )
+            case _ => // 이미지 포맷
+              img(
+                `class` := "nft-image p-10px",
+                src     := s"${getOptionValue(nftUri, "-").toString()}",
+              )
+
         case Cell.Head(data, css) => div(`class` := s"$css")(span()(data))
         case Cell.Any(data, css)  => div(`class` := s"$css")(span()(data))
         case Cell.PlainStr(data, css) =>
