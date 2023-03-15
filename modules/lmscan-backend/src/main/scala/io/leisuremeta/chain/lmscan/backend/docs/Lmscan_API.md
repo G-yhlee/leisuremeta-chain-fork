@@ -19,10 +19,12 @@
   - tokenType: 토큰 타입 구분 ( LM / NFT )
   - createdAt: 트랜잭션 생성 시간
 
-- Example (pageNo `0`, sizePerRequest: `3` 으로 요청한 예시)
-  - http://localhost:8081/tx/list?pageNo=0&sizePerRequest=3
+- example1: http://localhost:8081/tx/list?pageNo=0&sizePerRequest=3
+- example2: http://localhost:8081/tx/list?useDataNav=true&pageNo=0&sizePerRequest=10&accountAddr=eth-gateway
+- example3: http://localhost:8081/tx/list?useDataNav=true&pageNo=0&sizePerRequest=10&blockHash=724897511c0e58a0b719b29f568e7aea4665cde91c305fc569c9c1dfc40f03a2
 
 ```json
+// example1 : http://localhost:8081/tx/list?pageNo=0&sizePerRequest=3
 {
   "totalCount": 21,
   "totalPages": 7,
@@ -290,7 +292,7 @@
 
 - Response: Option[Summary]
 
-  - Example 
+  - Example
     - http://localhost:8081/summary/main
 
 ```json
