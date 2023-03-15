@@ -72,7 +72,9 @@ object TransactionRepository extends CommonQuery:
       pageNavInfo: PageNavigation,
   ): EitherT[F, String, PageResponse[Tx]] =
     val cntQuery = quote {
-      query[Tx]
+      query[Tx].filter(t =>
+        t.fromAddr == lift(addr) || t.toAddr.contains(lift(addr)),
+      )
     }
 
     inline def pagedQuery =
@@ -105,7 +107,7 @@ object TransactionRepository extends CommonQuery:
       pageNavInfo: PageNavigation,
   ): EitherT[F, String, PageResponse[Tx]] =
     val cntQuery = quote {
-      query[Tx]
+      query[Tx].filter(t => t.blockHash == lift(blockHash))
     }
 
     def pagedQuery =
@@ -146,7 +148,6 @@ object TransactionRepository extends CommonQuery:
 
 // inline def run[T](inline quoted: Quoted[Query[T]]): Future[Seq[T]]
 //   = InternalApi.runQueryDefault(quoted)
-
 
 /*
     처음 10개의 게시글(ROW)를 가져온다.
