@@ -70,11 +70,15 @@ object NavView:
         )(span()("Dashboard")),
         button(
           `class` := s"${isCurPageisBlock(model) || isPrevPageisBlock(model)}",
-          onClick(PageMsg.PreUpdate(PageName.Blocks(1))),
+          onClick(
+            PageMsg.PreUpdate(PageName.Blocks(model.block_list_Search.toInt)),
+          ),
         )(span()(PageName.Blocks.toString())),
         button(
           `class` := s"${isCurPageisTransaction(model) || isPrevPageisTransaction(model)}",
-          onClick(PageMsg.PreUpdate(PageName.Transactions(1))),
+          onClick(
+            PageMsg.PreUpdate(PageName.Transactions(model.tx_list_Search.toInt)),
+          ),
         )(span()(PageName.Transactions.toString())),
       ),
     )

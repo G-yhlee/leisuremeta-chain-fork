@@ -160,3 +160,12 @@ case :: 12101
 
 - yarn build
 ```
+
+# 패이지 이동 side-effect
+
+```
+dashboard => blocks
+- url 업데이트
+- curPage 업데이트
+-
+```

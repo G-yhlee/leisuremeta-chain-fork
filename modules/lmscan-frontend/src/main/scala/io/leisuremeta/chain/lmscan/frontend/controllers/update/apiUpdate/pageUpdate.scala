@@ -72,8 +72,8 @@ object PageUpdate:
           (
             model.copy(
               apiData = Some(data),
-              tx_list_Search = "1",
-              block_list_Search = "1",
+              // tx_list_Search = "1",
+              // block_list_Search = "1",
             ),
             Cmd.None,
           )
