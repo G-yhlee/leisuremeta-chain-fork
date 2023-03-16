@@ -12,56 +12,60 @@ object PageMoveUpdate:
   def update(model: Model): PageMoveMsg => (Model, Cmd[IO, Msg]) =
     case PageMoveMsg.Next =>
       model.curPage match
-        case PageName.Transactions(_) =>
-          val updated = model.tx_CurrentPage + pageMoveCnt
+        case PageName.Transactions(page) =>
+          val updated = page + pageMoveCnt
           (
             model.copy(
-              tx_CurrentPage = updated,
               tx_list_Search = updated.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Transactions(updated),
-              // ApiPayload(page = updated.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Transactions(updated),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Transactions(updated))),
             ),
           )
-        case PageName.Blocks(_) =>
-          val updated = model.block_CurrentPage + pageMoveCnt
+        case PageName.Blocks(page) =>
+          val updated = page + pageMoveCnt
           (
             model.copy(
-              block_CurrentPage = updated,
               block_list_Search = updated.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Blocks(updated),
-              // ApiPayload(page = updated.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Blocks(updated),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Blocks(updated))),
             ),
           )
         case _ => (model, Cmd.None)
 
     case PageMoveMsg.Prev =>
       model.curPage match
-        case PageName.Transactions(_) =>
-          val updated = model.tx_CurrentPage - pageMoveCnt
+        case PageName.Transactions(page) =>
+          val updated = page - pageMoveCnt
           (
             model.copy(
-              tx_CurrentPage = updated,
               tx_list_Search = updated.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Transactions(updated),
-              // ApiPayload(page = updated.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Transactions(updated),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Transactions(updated))),
             ),
           )
-        case PageName.Blocks(_) =>
-          val updated = model.block_CurrentPage - pageMoveCnt
+        case PageName.Blocks(page) =>
+          val updated = page - pageMoveCnt
           (
             model.copy(
-              block_CurrentPage = updated,
               block_list_Search = updated.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Blocks(updated),
-              // ApiPayload(page = updated.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Blocks(updated),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Blocks(updated))),
             ),
           )
         case _ => (model, Cmd.None)
@@ -82,7 +86,7 @@ object PageMoveUpdate:
 
     case PageMoveMsg.Patch(value) =>
       model.curPage match
-        case PageName.Transactions(_) =>
+        case PageName.Transactions(page) =>
           val str = value match
             case "Enter" => model.tx_list_Search
             case _       => value
@@ -91,21 +95,22 @@ object PageMoveUpdate:
             !str.forall(
               Character.isDigit,
             ) || str == "" || str.toInt > model.tx_TotalPage match
-              case true  => model.tx_CurrentPage
+              case true  => page
               case false => str.toInt
 
           log(s"PageMoveMsg.Patch ${str} ${res}")
           (
             model.copy(
-              tx_CurrentPage = res,
               tx_list_Search = res.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Transactions(res),
-              // ApiPayload(page = res.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Transactions(res),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Transactions(res))),
             ),
           )
-        case PageName.Blocks(_) =>
+        case PageName.Blocks(page) =>
           val str = value match
             case "Enter" => model.block_list_Search
             case _       => value
@@ -114,17 +119,18 @@ object PageMoveUpdate:
             !str.forall(
               Character.isDigit,
             ) || str == "" || str.toInt > model.block_TotalPage match
-              case true  => model.block_CurrentPage
+              case true  => page
               case false => str.toInt
 
           (
             model.copy(
-              block_CurrentPage = res,
               block_list_Search = res.toString(),
             ),
-            OnDataProcess.getData(
-              PageName.Blocks(res),
-              // ApiPayload(page = res.toString()),
+            Cmd.Batch(
+              OnDataProcess.getData(
+                PageName.Blocks(res),
+              ),
+              Cmd.emit(PageMsg.PreUpdate(PageName.Blocks(res))),
             ),
           )
 

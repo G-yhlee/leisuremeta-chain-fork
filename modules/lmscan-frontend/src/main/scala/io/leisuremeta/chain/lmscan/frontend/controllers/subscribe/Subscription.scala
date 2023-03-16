@@ -49,6 +49,6 @@ object Subscriptions:
         val state = e.asInstanceOf[PopStateEvent].state
         log("#state " + state)
         val page: PageName = ValidPageName.getPageFromStr(state.toString)
-        Some(PageMsg.PreUpdate(page, false))
+        Some(PageMsg.PreUpdate(page))
       },
     )

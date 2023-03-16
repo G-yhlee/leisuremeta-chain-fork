@@ -5,7 +5,10 @@ import Dom.{_hidden, timeAgo, yyyy_mm_dd_time, _selectedPage}
 
 object Search:
   val search_block = (model: Model) =>
-    val curPage   = model.block_CurrentPage
+    // val curPage   = model.block_CurrentPage
+    val curPage = model.curPage match
+      case PageName.Blocks(page) => page
+      case _                     => 1
     val totalPage = model.block_TotalPage
 
     val btnFistPage = curPage match
@@ -76,7 +79,10 @@ object Search:
     )
 
   val search_tx = (model: Model) =>
-    val curPage   = model.tx_CurrentPage
+    val curPage = model.curPage match
+      case PageName.Transactions(page) => page
+      case _                           => 1
+
     val totalPage = model.tx_TotalPage
 
     val btnFistPage = curPage match

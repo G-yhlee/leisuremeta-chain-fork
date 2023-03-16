@@ -14,22 +14,21 @@ import io.leisuremeta.chain.lmscan.common.model.BlockInfo
 
 object PageUpdate:
   def update(model: Model): PageMsg => (Model, Cmd[IO, Msg]) =
-    case PageMsg.PreUpdate(search: PageName, pushHistory: Boolean) =>
-      if pushHistory == true then
-        window.history.pushState(
-          // save page to history
-          search.toString(),
-          null,
-          // show url
-          s"${window.location.origin}/"
-            ++
-              search
-                .toString()
-                .replace("Detail", "")
-                .replace("(", "/")
-                .replace(")", "")
-                .toLowerCase(),
-        )
+    case PageMsg.PreUpdate(search: PageName) =>
+      window.history.pushState(
+        // save page to history
+        search.toString(),
+        null,
+        // show url
+        s"${window.location.origin}/"
+          ++
+            search
+              .toString()
+              .replace("Detail", "")
+              .replace("(", "/")
+              .replace(")", "")
+              .toLowerCase(),
+      )
       (
         model.copy(
           prevPage = model.curPage match
@@ -73,8 +72,6 @@ object PageUpdate:
           (
             model.copy(
               apiData = Some(data),
-              tx_CurrentPage = 1,
-              block_CurrentPage = 1,
               tx_list_Search = "1",
               block_list_Search = "1",
             ),
