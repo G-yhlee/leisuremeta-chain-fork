@@ -56,3 +56,18 @@ object ValidPageName:
           case 25 => PageName.NftDetail(search)
           case 64 => PageName.Page64(search)
           case _  => PageName.NoPage
+
+  def getPageFromUrl(url: String): PageName =
+    url match
+      case s"/dashboard"            => PageName.DashBoard
+      case s"/blocks"               => PageName.Blocks(1)
+      case s"/blocks/${page}"       => PageName.Blocks(page.toInt)
+      case s"/transactions"         => PageName.Transactions(1)
+      case s"/transactions/${page}" => PageName.Transactions(page.toInt)
+      case s"/block/${hash}"        => PageName.BlockDetail(hash)
+      case s"/tx/${hash}"           => PageName.TransactionDetail(hash)
+      case s"/transaction/${hash}"  => PageName.TransactionDetail(hash)
+      case s"/account/${hash}"      => PageName.AccountDetail(hash)
+      case s"/nft/${hash}"          => PageName.NftDetail(hash)
+
+      case _ => PageName.NoPage

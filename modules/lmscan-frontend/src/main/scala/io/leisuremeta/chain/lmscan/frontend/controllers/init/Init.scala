@@ -4,6 +4,7 @@ import cats.effect.IO
 import scala.scalajs.js
 import Log.*
 import org.scalajs.dom.window
+import io.leisuremeta.chain.lmscan.frontend.ValidPageName.getPageFromUrl
 object Init:
   val page                = PageName.DashBoard
   val toggle              = true
@@ -23,7 +24,6 @@ object Init:
     Cmd.Batch(
       OnDataProcess.getData(
         PageName.Transactions(tx_CurrentPage),
-        // ApiPayload(page = tx_CurrentPage.toString()),
       ),
     )
 
@@ -31,75 +31,29 @@ object Init:
     Cmd.Batch(
       OnDataProcess.getData(
         PageName.Blocks(block_CurrentPage),
-        // ApiPayload(page = block_CurrentPage.toString()),
       ),
     )
 
-  val path =
-    log("#path")
-    log(log(window.location.pathname).toString().split("/").takeRight(2).toList)
+  val path = window.location.pathname
 
   val path_match = log(
-    path match
-      case List("block", value) =>
-        Cmd.Batch(
-          Cmd.Emit(
-            PageMsg.PreUpdate(
-              PageName.BlockDetail(
-                value,
-              ),
-            ),
-          ),
-        )
-      case List("tx", value) =>
-        Cmd.Batch(
-          Cmd.Emit(
-            PageMsg.PreUpdate(
-              PageName.TransactionDetail(
-                value,
-              ),
-            ),
-          ),
-        )
-      case List("transaction", value) =>
-        Cmd.Batch(
-          Cmd.Emit(
-            PageMsg.PreUpdate(
-              PageName.TransactionDetail(
-                value,
-              ),
-            ),
-          ),
-        )
-
-      case List("account", value) =>
-        Cmd.Batch(
-          Cmd.Emit(
-            PageMsg.PreUpdate(
-              PageName.AccountDetail(
-                value,
-              ),
-            ),
-          ),
-        )
-      case List("nft", value) =>
-        Cmd.Batch(
-          Cmd.Emit(
-            PageMsg.PreUpdate(
-              PageName.NftDetail(
-                value,
-              ),
-            ),
-          ),
-        )
-      case _ =>
+    getPageFromUrl(path) match
+      case PageName.NoPage =>
         log("#path_match :: 매칭되는 페이지가 없습니다")
         window.history.pushState(
           null,
           null,
           s"${window.location.origin}",
         )
-        apiCmd,
+        apiCmd
+      case _ =>
+        Cmd.Batch(
+          Cmd.Emit(
+            PageMsg.PreUpdate(
+              getPageFromUrl(path),
+            ),
+          ),
+        ),
   )
 
   val setProtocol =
