@@ -17,18 +17,17 @@ object PageUpdate:
     case PageMsg.PreUpdate(search: PageName, pushHistory: Boolean) =>
       if pushHistory == true then
         window.history.pushState(
+          // save page to history
           search.toString(),
-          // .replace("/1", ""),
           null,
+          // show url
           s"${window.location.origin}/"
             ++
-              // getPage(search)
               search
                 .toString()
                 .replace("Detail", "")
                 .replace("(", "/")
                 .replace(")", "")
-                // .replace("/1", "")
                 .toLowerCase(),
         )
       (
@@ -46,11 +45,9 @@ object PageUpdate:
               Cmd.Batch(
                 OnDataProcess.getData(
                   PageName.Transactions(1),
-                  // ApiPayload(page = "1"),
                 ),
                 OnDataProcess.getData(
                   PageName.Blocks(1),
-                  // ApiPayload(page = "1"),
                 ),
                 OnDataProcess.getData(PageName.DashBoard),
                 Cmd.Emit(PageMsg.PageUpdate),
@@ -84,10 +81,7 @@ object PageUpdate:
           // TODO :: more simple code
           TxParser
             .decodeParser(data)
-            .map(data =>
-              // updated_tx_TotalPage = getOptionValue(data.totalPages, 1).asInstanceOf[Int],
-              updated_tx_TotalPage = data.totalPages,
-            )
+            .map(data => updated_tx_TotalPage = data.totalPages)
 
           (
             model.copy(
@@ -99,21 +93,11 @@ object PageUpdate:
 
         case PageName.Blocks(_) =>
           // TODO :: txData , tx_TotalPage 를 init 단계에서 실행되게 하는게 더 나은방법인지 생각해보자
-          var updated_block_TotalPage = 1
-          // var latestBlockList: List[Block] = List(new Block)
+          var updated_block_TotalPage          = 1
           var latestBlockList: List[BlockInfo] = List(new BlockInfo)
           // var latestBlockNumber: Int       = 1
           var latestBlockNumber: Long = 1
 
-          // TODO :: more simple code
-          // BlockParser
-          //   .decodeParser(data)
-          //   .map(data =>
-          //     updated_block_TotalPage =
-          //       getOptionValue(data.totalPages, 1).asInstanceOf[Int]
-          //     latestBlockList = getOptionValue(data.payload, List[Block])
-          //       .asInstanceOf[List[Block]],
-          //   )
           BlockParser
             .decodeParser(data)
             .map(data =>
@@ -122,7 +106,6 @@ object PageUpdate:
                 .asInstanceOf[List[BlockInfo]],
             )
 
-          // latestBlockNumber = getOptionValue(latestBlockList(0).number, 1).asInstanceOf[Int]
           latestBlockNumber =
             getOptionValue(latestBlockList(0).number, 1).asInstanceOf[Long]
 
