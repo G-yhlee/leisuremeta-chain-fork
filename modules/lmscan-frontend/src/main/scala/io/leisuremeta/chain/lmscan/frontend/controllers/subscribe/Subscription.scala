@@ -43,10 +43,12 @@ object Subscriptions:
                 Some(PageMoveMsg.Patch("Enter"))
               case _ =>
                 None
-          },
-      Sub.fromEvent("popstate", window){e =>
-          val state = e.asInstanceOf[PopStateEvent].state
-          val page: PageName = ValidPageName.getPageFromStr(state.toString)
-          Some(PageMsg.PreUpdate(page, false))
-      },      
+          }
+      ,
+      Sub.fromEvent("popstate", window) { e =>
+        val state = e.asInstanceOf[PopStateEvent].state
+        log("#state " + state)
+        val page: PageName = ValidPageName.getPageFromStr(state.toString)
+        Some(PageMsg.PreUpdate(page, false))
+      },
     )

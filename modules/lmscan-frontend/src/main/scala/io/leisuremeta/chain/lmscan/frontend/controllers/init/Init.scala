@@ -93,6 +93,7 @@ object Init:
           ),
         )
       case _ =>
+        log("#path_match :: 매칭되는 페이지가 없습니다")
         window.history.pushState(
           null,
           null,
