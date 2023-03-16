@@ -70,6 +70,89 @@ object PageMoveUpdate:
           )
         case _ => (model, Cmd.None)
 
+    case PageMoveMsg.Goto(page: PageName) =>
+      // page match
+      //   case PageName.Transactions(page) =>
+      //     (
+      //       model.copy(
+      //         tx_list_Search = newPage.toString(),
+      //         curPage = PageName.Transactions(newPage.toInt),
+      //         prevPage = PageName.Transactions(prevPage.toInt),
+      //       ),
+      //       OnDataProcess.getData(
+      //         PageName.Transactions(newPage),
+      //       ),
+      //     )
+      //   case PageName.Blocks(page) =>
+      //     (
+      //       model.copy(
+      //         tx_list_Search = newPage.toString(),
+      //         curPage = PageName.Bl(newPage.toInt),
+      //         prevPage = PageName.Transactions(prevPage.toInt),
+      //       ),
+      //       OnDataProcess.getData(
+      //         PageName.Transactions(newPage),
+      //       ),
+      //     )
+        // case _ =>
+        //   (
+        //     model.copy(
+              // tx_list_Search = newPage.toString(),
+              // curPage = PageName.Transactions(newPage.toInt),
+              // prevPage = PageName.Transactions(prevPage.toInt),
+            ),
+            Cmd.None,
+          )
+
+    // model.curPage match
+    //   case PageName.Transactions(prevPage) =>
+    //     (
+    //       model.copy(
+    //         tx_list_Search = newPage.toString(),
+    //         curPage = PageName.Transactions(newPage.toInt),
+    //         prevPage = PageName.Transactions(prevPage.toInt),
+    //       ),
+    //       OnDataProcess.getData(
+    //         PageName.Transactions(newPage),
+    //       ),
+    //     )
+    //   case PageName.Blocks(prevPage) =>
+    //     (
+    //       model.copy(
+    //         block_list_Search = newPage.toString(),
+    //         curPage = PageName.Blocks(newPage.toInt),
+    //         prevPage = PageName.Blocks(prevPage.toInt),
+    //       ),
+    //       OnDataProcess.getData(
+    //         PageName.Blocks(newPage),
+    //       ),
+    //     )
+    //   case _ =>
+    //     model.prevPage match
+    //       case PageName.Transactions(prevPage) =>
+    //         (
+    //           model.copy(
+    //             tx_list_Search = newPage.toString(),
+    //             curPage = PageName.Transactions(newPage.toInt),
+    //             prevPage = PageName.Transactions(prevPage.toInt),
+    //           ),
+    //           OnDataProcess.getData(
+    //             PageName.Transactions(newPage),
+    //           ),
+    //         )
+    //       case PageName.Blocks(prevPage) =>
+    //         (
+    //           model.copy(
+    //             block_list_Search = newPage.toString(),
+    //             curPage = PageName.Blocks(newPage.toInt),
+    //             prevPage = PageName.Blocks(prevPage.toInt),
+    //           ),
+    //           OnDataProcess.getData(
+    //             PageName.Blocks(newPage),
+    //           ),
+    //         )
+    //       case _ => (model, Cmd.None)
+
     case PageMoveMsg.Get(value) =>
       model.curPage match
         case PageName.Transactions(_) =>

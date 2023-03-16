@@ -35,6 +35,8 @@ object PageUpdate:
             case PageName.NoPage => model.prevPage
             case _               => model.curPage
           ,
+          block_list_Search = "1",
+          tx_list_Search = "1",
           searchValueStore = search.toString(),
           pageNameStore = getPage(search),
           urlStore = search.toString(),
@@ -52,11 +54,15 @@ object PageUpdate:
                 Cmd.Emit(PageMsg.PageUpdate),
               )
 
-            case PageName.Blocks(_) =>
-              Cmd.Emit(PageMsg.PageUpdate)
+            case PageName.Blocks(page) =>
+              Cmd.Batch(
+                Cmd.Emit(PageMsg.PageUpdate),
+              )
 
-            case PageName.Transactions(_) =>
-              Cmd.Emit(PageMsg.PageUpdate)
+            case PageName.Transactions(page) =>
+              Cmd.Batch(
+                Cmd.Emit(PageMsg.PageUpdate),
+              )
 
             case _ =>
               OnDataProcess.getData(

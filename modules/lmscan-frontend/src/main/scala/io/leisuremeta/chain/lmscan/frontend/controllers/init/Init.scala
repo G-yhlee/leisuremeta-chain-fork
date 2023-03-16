@@ -46,6 +46,32 @@ object Init:
           s"${window.location.origin}",
         )
         apiCmd
+      case PageName.Blocks(page) =>
+        Cmd.Batch(
+          Cmd.Emit(
+            PageMsg.PreUpdate(
+              getPageFromUrl(path),
+            ),
+          ),
+          Cmd.Emit(
+            PageMoveMsg.Goto(
+              page,
+            ),
+          ),
+        )
+      case PageName.Transactions(page) =>
+        Cmd.Batch(
+          Cmd.Emit(
+            PageMsg.PreUpdate(
+              getPageFromUrl(path),
+            ),
+          ),
+          Cmd.Emit(
+            PageMoveMsg.Goto(
+              page,
+            ),
+          ),
+        )
       case _ =>
         Cmd.Batch(
           Cmd.Emit(
