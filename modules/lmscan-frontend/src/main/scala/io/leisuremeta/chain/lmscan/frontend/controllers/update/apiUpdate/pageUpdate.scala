@@ -71,7 +71,13 @@ object PageUpdate:
       page match
         case PageName.DashBoard =>
           (
-            model.copy(apiData = Some(data)),
+            model.copy(
+              apiData = Some(data),
+              tx_CurrentPage = 1,
+              block_CurrentPage = 1,
+              tx_list_Search = "1",
+              block_list_Search = "1",
+            ),
             Cmd.None,
           )
         case PageName.Transactions(_) =>
@@ -95,8 +101,7 @@ object PageUpdate:
           // TODO :: txData , tx_TotalPage 를 init 단계에서 실행되게 하는게 더 나은방법인지 생각해보자
           var updated_block_TotalPage          = 1
           var latestBlockList: List[BlockInfo] = List(new BlockInfo)
-          // var latestBlockNumber: Int       = 1
-          var latestBlockNumber: Long = 1
+          var latestBlockNumber: Long          = 1
 
           BlockParser
             .decodeParser(data)

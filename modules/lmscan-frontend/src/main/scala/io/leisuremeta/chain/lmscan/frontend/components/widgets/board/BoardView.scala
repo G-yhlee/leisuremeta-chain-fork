@@ -49,12 +49,6 @@ object BoardView:
               //   getOptionValue(data.txCountInLatest24h, "-").toString().toDouble,
               // ),
               plainStr(data.txCountInLatest24h),
-              // V.commaNumber(plainStr(data.txCountInLatest24h)),
-              // String.format(
-              //   "%,d",
-              //   getOptionValue(data.txCountInLatest24h, "-").toString()
-              // ),
-              // "242971",
             ),
           ),
         ),
