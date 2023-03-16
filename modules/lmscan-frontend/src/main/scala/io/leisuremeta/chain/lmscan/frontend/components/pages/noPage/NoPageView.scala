@@ -15,7 +15,7 @@ object NoPageView:
             `class` := "font-20px",
             onClick(
               PageMsg.PreUpdate(
-                model.prevPage,
+                log(model.prevPage),
               ),
             ),
           )(

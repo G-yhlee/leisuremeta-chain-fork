@@ -5,7 +5,9 @@ import io.circe.syntax.*
 import io.circe.parser.*
 
 enum PageName:
-  case DashBoard, Blocks, Transactions, NoPage
+  case DashBoard, NoPage
+  case Blocks(page: Int)               extends PageName
+  case Transactions(page: Int)         extends PageName
   case TransactionDetail(hash: String) extends PageName
   case BlockDetail(hash: String)       extends PageName
   case NftDetail(hash: String)         extends PageName
@@ -16,9 +18,14 @@ enum PageName:
 object ValidPageName:
   def getPage(search: PageName): PageName =
     search match
-      case PageName.DashBoard            => search
-      case PageName.Blocks               => search
-      case PageName.Transactions         => search
+      case PageName.DashBoard => search
+      case PageName.Blocks(_) =>
+        Log.log("case PageName.Blocks(_)            => ")
+        Log.log(search)
+        search
+      case PageName.Transactions(_) =>
+        Log.log("case PageName.Transactions(_)            => ")
+        Log.log(search)
       case PageName.BlockDetail(_)       => search
       case PageName.AccountDetail(_)     => search
       case PageName.TransactionDetail(_) => search
@@ -39,16 +46,16 @@ object ValidPageName:
 
   def getPageFromStr(search: String): PageName =
     search match
-      case "DashBoard"                  => PageName.DashBoard
-      case "Blocks"                     => PageName.Blocks
-      case s"Transactions"              => PageName.Transactions
-      case s"BlockDetail($hash)"        => PageName.BlockDetail(hash)
-      case s"AccountDetail($hash)"      => PageName.AccountDetail(hash)
-      case s"TransactionDetail($hash)"  => PageName.TransactionDetail(hash)
-      case s"NftDetail($hash)"          => PageName.NftDetail(hash)
-      case _                            => 
+      case "DashBoard"                 => PageName.DashBoard
+      case "Blocks"                    => PageName.Blocks(1)
+      case s"Transactions"             => PageName.Transactions(1)
+      case s"BlockDetail($hash)"       => PageName.BlockDetail(hash)
+      case s"AccountDetail($hash)"     => PageName.AccountDetail(hash)
+      case s"TransactionDetail($hash)" => PageName.TransactionDetail(hash)
+      case s"NftDetail($hash)"         => PageName.NftDetail(hash)
+      case _ =>
         search.length() match
           case 40 => PageName.AccountDetail(search)
           case 25 => PageName.NftDetail(search)
           case 64 => PageName.Page64(search)
-          case _  => PageName.None      
+          case _  => PageName.None

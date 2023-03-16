@@ -22,20 +22,22 @@ object Init:
   val txCmd: Cmd.Batch[IO, Msg] =
     Cmd.Batch(
       OnDataProcess.getData(
-        PageName.Transactions,
-        ApiPayload(page = tx_CurrentPage.toString()),
+        PageName.Transactions(tx_CurrentPage),
+        // ApiPayload(page = tx_CurrentPage.toString()),
       ),
     )
 
   val blockCmd: Cmd.Batch[IO, Msg] =
     Cmd.Batch(
       OnDataProcess.getData(
-        PageName.Blocks,
-        ApiPayload(page = block_CurrentPage.toString()),
+        PageName.Blocks(block_CurrentPage),
+        // ApiPayload(page = block_CurrentPage.toString()),
       ),
     )
+
   val path =
-    Log.log(window.location.pathname.toString().split("/").takeRight(2).toList)
+    log("#path")
+    log(log(window.location.pathname).toString().split("/").takeRight(2).toList)
 
   val path_match = log(
     path match

@@ -1,5 +1,6 @@
 package io.leisuremeta.chain.lmscan.frontend
 
+import Log.log
 import cats.effect.IO
 import tyrian.Html.*
 import tyrian.*
@@ -10,7 +11,7 @@ object SearchUpdate:
       (model.copy(searchValue = s), Cmd.None)
 
     case InputMsg.Patch =>
-      Log.log(ValidPageName.getPageString(model.searchValue))
+      log(ValidPageName.getPageString(model.searchValue))
       (
         model,
         Cmd.emit(

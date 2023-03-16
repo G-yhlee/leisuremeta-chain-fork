@@ -7,11 +7,11 @@ object Pages:
     model.curPage match
       case PageName.DashBoard =>
         DashboardView.view(model)
-      case PageName.Blocks =>
+      case PageName.Blocks(_) =>
         BlocksView.view(model)
       case PageName.BlockDetail(_) =>
         BlockDetailView.view(model)
-      case PageName.Transactions =>
+      case PageName.Transactions(_) =>
         TransactionsView.view(model)
       case PageName.TransactionDetail(_) =>
         TransactionDetailView.view(model)

@@ -14,7 +14,7 @@ object Title:
         `class` := s"type-2",
       )(
         span(
-          onClick(PageMsg.PreUpdate(PageName.Blocks)),
+          onClick(PageMsg.PreUpdate(PageName.Blocks(1))),
         )("More"),
       ),
     )
@@ -29,7 +29,7 @@ object Title:
         `class` := s"type-2",
       )(
         span(
-          onClick(PageMsg.PreUpdate(PageName.Transactions)),
+          onClick(PageMsg.PreUpdate(PageName.Transactions(1))),
         )("More"),
       ),
     )

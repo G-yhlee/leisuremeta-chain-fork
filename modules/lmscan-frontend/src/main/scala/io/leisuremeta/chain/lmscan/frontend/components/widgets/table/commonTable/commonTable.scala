@@ -13,7 +13,7 @@ object Tables:
           ),
         )
 
-      case PageName.Blocks =>
+      case PageName.Blocks(_) =>
         div(`class` := "table-area")(
           div(`class` := "font-40px pt-16px font-block-detail")(
             "Blocks",
@@ -30,7 +30,7 @@ object Tables:
           ),
         )
 
-      case PageName.Transactions =>
+      case PageName.Transactions(_) =>
         div(`class` := "table-area")(
           div(`class` := "font-40px pt-16px font-block-detail")(
             "Transactions",

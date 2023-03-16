@@ -11,8 +11,8 @@ object PageMoveUpdate:
 
   def update(model: Model): PageMoveMsg => (Model, Cmd[IO, Msg]) =
     case PageMoveMsg.Next =>
-      model.curPage.toString() match
-        case "Transactions" =>
+      model.curPage match
+        case PageName.Transactions(_) =>
           val updated = model.tx_CurrentPage + pageMoveCnt
           (
             model.copy(
@@ -20,11 +20,11 @@ object PageMoveUpdate:
               tx_list_Search = updated.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Transactions,
-              ApiPayload(page = updated.toString()),
+              PageName.Transactions(updated),
+              // ApiPayload(page = updated.toString()),
             ),
           )
-        case "Blocks" =>
+        case PageName.Blocks(_) =>
           val updated = model.block_CurrentPage + pageMoveCnt
           (
             model.copy(
@@ -32,15 +32,15 @@ object PageMoveUpdate:
               block_list_Search = updated.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Blocks,
-              ApiPayload(page = updated.toString()),
+              PageName.Blocks(updated),
+              // ApiPayload(page = updated.toString()),
             ),
           )
         case _ => (model, Cmd.None)
 
     case PageMoveMsg.Prev =>
-      model.curPage.toString() match
-        case "Transactions" =>
+      model.curPage match
+        case PageName.Transactions(_) =>
           val updated = model.tx_CurrentPage - pageMoveCnt
           (
             model.copy(
@@ -48,11 +48,11 @@ object PageMoveUpdate:
               tx_list_Search = updated.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Transactions,
-              ApiPayload(page = updated.toString()),
+              PageName.Transactions(updated),
+              // ApiPayload(page = updated.toString()),
             ),
           )
-        case "Blocks" =>
+        case PageName.Blocks(_) =>
           val updated = model.block_CurrentPage - pageMoveCnt
           (
             model.copy(
@@ -60,20 +60,20 @@ object PageMoveUpdate:
               block_list_Search = updated.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Blocks,
-              ApiPayload(page = updated.toString()),
+              PageName.Blocks(updated),
+              // ApiPayload(page = updated.toString()),
             ),
           )
         case _ => (model, Cmd.None)
 
     case PageMoveMsg.Get(value) =>
-      model.curPage.toString() match
-        case "Transactions" =>
+      model.curPage match
+        case PageName.Transactions(_) =>
           (
             model.copy(tx_list_Search = value),
             Cmd.None,
           )
-        case "Blocks" =>
+        case PageName.Blocks(_) =>
           (
             model.copy(block_list_Search = value),
             Cmd.None,
@@ -81,8 +81,8 @@ object PageMoveUpdate:
         case _ => (model, Cmd.None)
 
     case PageMoveMsg.Patch(value) =>
-      model.curPage.toString() match
-        case "Transactions" =>
+      model.curPage match
+        case PageName.Transactions(_) =>
           val str = value match
             case "Enter" => model.tx_list_Search
             case _       => value
@@ -101,11 +101,11 @@ object PageMoveUpdate:
               tx_list_Search = res.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Transactions,
-              ApiPayload(page = res.toString()),
+              PageName.Transactions(res),
+              // ApiPayload(page = res.toString()),
             ),
           )
-        case "Blocks" =>
+        case PageName.Blocks(_) =>
           val str = value match
             case "Enter" => model.block_list_Search
             case _       => value
@@ -123,8 +123,8 @@ object PageMoveUpdate:
               block_list_Search = res.toString(),
             ),
             OnDataProcess.getData(
-              PageName.Blocks,
-              ApiPayload(page = res.toString()),
+              PageName.Blocks(res),
+              // ApiPayload(page = res.toString()),
             ),
           )
 

@@ -18,14 +18,17 @@ object PageUpdate:
       if pushHistory == true then
         window.history.pushState(
           search.toString(),
+          // .replace("/1", ""),
           null,
           s"${window.location.origin}/"
             ++
-              getPage(search)
+              // getPage(search)
+              search
                 .toString()
                 .replace("Detail", "")
                 .replace("(", "/")
                 .replace(")", "")
+                // .replace("/1", "")
                 .toLowerCase(),
         )
       (
@@ -42,21 +45,21 @@ object PageUpdate:
             case PageName.DashBoard =>
               Cmd.Batch(
                 OnDataProcess.getData(
-                  PageName.Transactions,
-                  ApiPayload(page = "1"),
+                  PageName.Transactions(1),
+                  // ApiPayload(page = "1"),
                 ),
                 OnDataProcess.getData(
-                  PageName.Blocks,
-                  ApiPayload(page = "1"),
+                  PageName.Blocks(1),
+                  // ApiPayload(page = "1"),
                 ),
                 OnDataProcess.getData(PageName.DashBoard),
                 Cmd.Emit(PageMsg.PageUpdate),
               )
 
-            case PageName.Blocks =>
+            case PageName.Blocks(_) =>
               Cmd.Emit(PageMsg.PageUpdate)
 
-            case PageName.Transactions =>
+            case PageName.Transactions(_) =>
               Cmd.Emit(PageMsg.PageUpdate)
 
             case _ =>
@@ -74,7 +77,7 @@ object PageUpdate:
             model.copy(apiData = Some(data)),
             Cmd.None,
           )
-        case PageName.Transactions =>
+        case PageName.Transactions(_) =>
           // TODO :: txData , tx_TotalPage 를 init 단계에서 실행되게 하는게 더 나은방법인지 생각해보자
           var updated_tx_TotalPage = 1
 
@@ -94,14 +97,13 @@ object PageUpdate:
             Cmd.None,
           )
 
-        case PageName.Blocks =>
-          log("case PageName.Blocks =>")
+        case PageName.Blocks(_) =>
           // TODO :: txData , tx_TotalPage 를 init 단계에서 실행되게 하는게 더 나은방법인지 생각해보자
-          var updated_block_TotalPage      = 1
+          var updated_block_TotalPage = 1
           // var latestBlockList: List[Block] = List(new Block)
           var latestBlockList: List[BlockInfo] = List(new BlockInfo)
           // var latestBlockNumber: Int       = 1
-          var latestBlockNumber: Long       = 1
+          var latestBlockNumber: Long = 1
 
           // TODO :: more simple code
           // BlockParser
@@ -121,7 +123,8 @@ object PageUpdate:
             )
 
           // latestBlockNumber = getOptionValue(latestBlockList(0).number, 1).asInstanceOf[Int]
-          latestBlockNumber = getOptionValue(latestBlockList(0).number, 1).asInstanceOf[Long]
+          latestBlockNumber =
+            getOptionValue(latestBlockList(0).number, 1).asInstanceOf[Long]
 
           (
             model.copy(
@@ -162,6 +165,7 @@ object PageUpdate:
           )
 
         case _ =>
+          log(page)
           (
             model,
             Cmd.emit(PageMsg.GetError("페이지를 찾을수 없다..", page)),
@@ -177,7 +181,7 @@ object PageUpdate:
     case PageMsg.GetError(msg, page) =>
       page match
         case PageName.Page64(hash) =>
-          Log.log(s"트랙잭션 먼저 검색 후 실패시 블록 디테일로 검색한다")
+          log(s"트랙잭션 먼저 검색 후 실패시 블록 디테일로 검색한다")
           (
             model,
             Cmd.emit(PageMsg.PreUpdate(PageName.BlockDetail(hash))),
@@ -191,7 +195,7 @@ object PageUpdate:
                 .asInstanceOf[HTMLElement]
                 .style
                 .display = "none"
-              Log.log(page.toString() + " -> " + msg)
+              log(page.toString() + " -> " + msg)
               (
                 model,
                 Cmd.None,
@@ -202,7 +206,7 @@ object PageUpdate:
                 .asInstanceOf[HTMLElement]
                 .style
                 .display = "none"
-              Log.log(page.toString() + " -> " + msg)
+              log(page.toString() + " -> " + msg)
               (
                 model.copy(curPage = PageName.NoPage),
                 Cmd.emit(PageMsg.PostUpdate),

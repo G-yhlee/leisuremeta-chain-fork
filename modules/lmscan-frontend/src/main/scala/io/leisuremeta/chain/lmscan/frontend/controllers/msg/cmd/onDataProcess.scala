@@ -12,6 +12,7 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.duration.*
+import io.leisuremeta.chain.lmscan.frontend.Log.log
 
 case class ApiPayload(page: String)
 
@@ -36,13 +37,14 @@ object UnderDataProcess:
 
         page match
           case PageName.AccountDetail(_) =>
-            Log.log(s"${page}: ${response.body}")
+            log("#?")
+            log(s"${page}: ${response.body}")
           case _ => ""
 
         page match
           case PageName.Page64(hash) =>
             PageMsg.DataUpdate(response.body, PageName.TransactionDetail(hash))
-          case _ => PageMsg.DataUpdate(Log.log(response.body), page)
+          case _ => PageMsg.DataUpdate(log(response.body), page)
 
       }
 
@@ -62,11 +64,13 @@ object OnDataProcess:
   // val host = js.Dynamic.global.process.env.BACKEND_URL
   // val port = js.Dynamic.global.process.env.BACKEND_PORT
 
+  // !FIX
+  // var base = js.Dynamic.global.process.env.BASE_API_URL_DEV
   var base = js.Dynamic.global.process.env.BASE_API_URL
 
   def getData(
       pageName: PageName,
-      payload: ApiPayload = ApiPayload("1"),
+      // payload: ApiPayload = ApiPayload("1"),
   ): Cmd[IO, Msg] =
     dom.document
       .querySelector("#loader-container")
@@ -77,10 +81,10 @@ object OnDataProcess:
     val url = pageName match
       case PageName.DashBoard =>
         s"$base/summary/main"
-      case PageName.Transactions =>
-        s"$base/tx/list?pageNo=${(payload.page.toInt - 1).toString()}&sizePerRequest=10"
-      case PageName.Blocks =>
-        s"$base/block/list?pageNo=${(payload.page.toInt - 1).toString()}&sizePerRequest=10"
+      case PageName.Transactions(page) =>
+        s"$base/tx/list?pageNo=${(page - 1).toString()}&sizePerRequest=10"
+      case PageName.Blocks(page) =>
+        s"$base/block/list?pageNo=${(page - 1).toString()}&sizePerRequest=10"
       case PageName.BlockDetail(hash) =>
         s"$base/block/$hash/detail"
       case PageName.TransactionDetail(hash) =>
@@ -90,7 +94,7 @@ object OnDataProcess:
       case PageName.NftDetail(hash) =>
         s"$base/nft/$hash/detail"
       case PageName.Page64(hash) =>
-        Log.log(s"여기로 검색? $base/tx/$hash/detail")
+        log(s"#page64 $base/tx/$hash/detail")
         s"$base/tx/$hash/detail"
 
       case _ => s"$base/summary/main"
