@@ -16,9 +16,7 @@ final case class Model(
     toggleTxDetailInput: Boolean,
 
     // page move
-    // tx_CurrentPage: Int,
     tx_TotalPage: Int,
-    // block_CurrentPage: Int,
     block_TotalPage: Int,
 
     // page_Search: String,
