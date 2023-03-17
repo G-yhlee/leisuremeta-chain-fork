@@ -8,7 +8,9 @@ object NoPageView:
     div(`class` := "x-center")(
       div()(
         div(`class` := "x-center")(
-          span(`class` := "xy-center font-20px h-64px")("No results Found."),
+          span(`class` := "xy-center font-20px h-64px color-white")(
+            "No results Found.",
+          ),
         ),
         div(`class` := "cell type-button")(
           span(

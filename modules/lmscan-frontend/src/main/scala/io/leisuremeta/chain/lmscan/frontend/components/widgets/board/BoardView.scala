@@ -21,8 +21,8 @@ object BoardView:
           div(
             `class` := "board-text y-center gap-10px",
           )(
-            div(`class` := "font-16px color-grey")(Board.LM_Price),
-            div()(
+            div(`class` := "font-16px color-white font-bold")(Board.LM_Price),
+            div(`class` := "color-white font-bold")(
               plainStr(data.lmPrice).take(6) + " USDT",
             ),
           ),
@@ -31,8 +31,10 @@ object BoardView:
           div(
             `class` := "board-text y-center gap-10px",
           )(
-            div(`class` := "font-16px color-grey")(Board.Block_Number),
-            div()(model.latestBlockNumber),
+            div(`class` := "font-16px color-white font-bold color-white")(
+              Board.Block_Number,
+            ),
+            div(`class` := "color-white font-bold")(model.latestBlockNumber),
           ),
         ),
       ),
@@ -41,8 +43,10 @@ object BoardView:
           div(
             `class` := "board-text y-center gap-10px",
           )(
-            div(`class` := "font-16px color-grey")(Board.Transactions),
-            div()(
+            div(`class` := "font-16px color-white font-bold color-white")(
+              Board.Transactions,
+            ),
+            div(`class` := "color-white font-bold")(
               // getOptionValue(data.txCountInLatest24h, "-").toString(),
               // String.format(
               //   "%,d",
@@ -56,8 +60,10 @@ object BoardView:
           div(
             `class` := "board-text y-center gap-10px",
           )(
-            div(`class` := "font-16px color-grey")(Board.Accounts),
-            div()(
+            div(`class` := "font-16px color-white font-bold color-white")(
+              Board.Accounts,
+            ),
+            div(`class` := "color-white font-bold")(
               plainStr(data.totalAccounts),
               // "39,104",
             ),

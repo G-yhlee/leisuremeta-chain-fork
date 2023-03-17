@@ -15,7 +15,7 @@ object Tables:
 
       case PageName.Blocks(_) =>
         div(`class` := "table-area")(
-          div(`class` := "font-40px pt-16px font-block-detail")(
+          div(`class` := "font-40px pt-16px font-block-detail color-white")(
             "Blocks",
           ),
           div(id := "oop-table-blocks", `class` := "table-list x")(
@@ -32,7 +32,7 @@ object Tables:
 
       case PageName.Transactions(_) =>
         div(`class` := "table-area")(
-          div(`class` := "font-40px pt-16px font-block-detail")(
+          div(`class` := "font-40px pt-16px font-block-detail color-white")(
             "Transactions",
           ),
           div(id := "oop-table-blocks", `class` := "table-list x")(
