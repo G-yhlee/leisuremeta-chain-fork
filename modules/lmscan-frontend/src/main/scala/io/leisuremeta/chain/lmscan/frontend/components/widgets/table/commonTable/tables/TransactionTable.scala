@@ -11,6 +11,17 @@ import Log.*
 object TransactionTable:
   def view(model: Model): Html[Msg] =
     model.curPage match
+      case PageName.DashBoard =>
+        div(`class` := "table-container")(
+          Title.tx(model),
+          Table.dashboard_txtable(model),
+        )
+
+      case PageName.Transactions(_) =>
+        div(`class` := "table-container")(
+          Table.txList_txtable(model),
+          Search.search_tx(model),
+        )
       case PageName.BlockDetail(_) =>
         div(`class` := "table-container")(
           Table.blockDetail_txtable(model),
@@ -21,16 +32,9 @@ object TransactionTable:
           Table.accountDetail_txtable(model),
           Search.search_tx(model),
         )
-
-      case PageName.DashBoard =>
+      case PageName.NftDetail(_) =>
         div(`class` := "table-container")(
-          Title.tx(model),
-          Table.dashboard_txtable(model),
-        )
-
-      case PageName.Transactions(_) =>
-        div(`class` := "table-container")(
-          Table.txList_txtable(model),
+          Table.nftDetail_txtable(model),
           Search.search_tx(model),
         )
 

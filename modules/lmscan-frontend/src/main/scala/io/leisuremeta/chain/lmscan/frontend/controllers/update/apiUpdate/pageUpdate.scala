@@ -26,6 +26,10 @@ object PageUpdate:
               .toString()
               .replace("Detail", "")
               .replace("(", "/")
+              .replace(
+                ",",
+                "/",
+              ) // accountdetail(playnomm,1) => account/playnomm/1
               .replace(")", "")
               .toLowerCase(),
       )

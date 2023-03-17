@@ -55,7 +55,7 @@ object Tables:
       case PageName.NftDetail(_) =>
         div(`class` := "table-area")(
           div(id := "oop-table-blocks", `class` := "table-list x")(
-            NftTable.view(model),
+            TransactionTable.view(model),
           ),
         )
       case _ => div()
