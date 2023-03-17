@@ -108,7 +108,7 @@ object gen:
                         List(
                           style(
                             Style(
-                              "background-color" -> "white",
+                              "background-color" -> "rgba(171, 242, 0, 0.5)",
                               "padding"          -> "5px",
                               "border"           -> "1px solid green",
                               "border-radius"    -> "5px",
@@ -120,6 +120,7 @@ object gen:
                         List(
                           style(
                             Style(
+                              "text-decoration"  -> "none",
                               "background-color" -> "rgba(171, 242, 0, 0.5)",
                               "padding"          -> "5px",
                               "border"           -> "1px solid green",
