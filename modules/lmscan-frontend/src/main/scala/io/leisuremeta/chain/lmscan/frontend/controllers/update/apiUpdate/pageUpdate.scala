@@ -35,8 +35,14 @@ object PageUpdate:
             case PageName.NoPage => model.prevPage
             case _               => model.curPage
           ,
-          block_list_Search = "1",
-          tx_list_Search = "1",
+          block_list_Search = getPage(search) match
+            case PageName.DashBoard => "1"
+            case _                  => model.block_list_Search
+          ,
+          tx_list_Search = getPage(search) match
+            case PageName.DashBoard => "1"
+            case _                  => model.tx_list_Search
+          ,
           searchValueStore = search.toString(),
           pageNameStore = getPage(search),
           urlStore = search.toString(),
