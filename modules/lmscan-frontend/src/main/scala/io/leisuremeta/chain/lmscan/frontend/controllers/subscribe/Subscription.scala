@@ -53,9 +53,9 @@ object Subscriptions:
         // PageMoveMsg.Get(value)
         page match
           case PageName.Transactions(page1) =>
-            Some(PageMoveMsg.Goto(page1))
+            Some(PageMoveMsg.Goto(page))
           case PageName.Blocks(page1) =>
-            Some(PageMoveMsg.Goto(page1))
+            Some(PageMoveMsg.Goto(page))
           case _ => Some(PageMsg.PreUpdate(page))
       },
     )

@@ -69,7 +69,7 @@ object Search:
         )(
           input(
             onInput(s => PageMoveMsg.Get(s)),
-            value := s"${model.block_list_Search}",
+            value := s"${curPage}",
             `class` := "type-search xy-center DOM-page1 margin-right text-center",
           ),
           div(`class` := "type-plain-text margin-right")("of"),
@@ -143,7 +143,7 @@ object Search:
         )(
           input(
             onInput(s => PageMoveMsg.Get(s)),
-            value := s"${model.tx_list_Search}",
+            value := s"${curPage}",
             `class` := "type-search xy-center DOM-page1 margin-right text-center",
           ),
           div(`class` := "type-plain-text margin-right")("of"),

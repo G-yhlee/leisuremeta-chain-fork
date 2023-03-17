@@ -168,4 +168,20 @@ dashboard => blocks
 - url 업데이트
 - curPage 업데이트
 - block_list_Search
+
+
+@ 뒤로가기 클릭
+@ page search 버튼클릭
+@ init
+@ nav 클릭
+
+
+================================
+
+( blocks(1) => nav-dashboard )
+
+- 현재 페이지
+- 이전 페이지
+-
+
 ```

@@ -28,7 +28,7 @@ enum PageMoveMsg extends Msg:
   case Next                 extends PageMoveMsg
   case Get(value: String)   extends PageMoveMsg
   case Patch(value: String) extends PageMoveMsg
-  case Goto(value: Int)     extends PageMoveMsg
+  case Goto(page: PageName) extends PageMoveMsg
 
 // No more use ========================================================
 // enum TxMsg extends Msg:

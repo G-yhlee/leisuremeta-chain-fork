@@ -55,7 +55,7 @@ object Init:
           ),
           Cmd.Emit(
             PageMoveMsg.Goto(
-              page,
+              PageName.Blocks(page),
             ),
           ),
         )
@@ -68,7 +68,7 @@ object Init:
           ),
           Cmd.Emit(
             PageMoveMsg.Goto(
-              page,
+              PageName.Transactions(page),
             ),
           ),
         )
