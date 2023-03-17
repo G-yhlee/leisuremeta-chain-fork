@@ -4,6 +4,8 @@ import io.circe.Json
 
 // import cats.effect.IO
 final case class Model(
+    // STATE MODEL
+
     // nav move
     prevPage: PageName,
     curPage: PageName,
