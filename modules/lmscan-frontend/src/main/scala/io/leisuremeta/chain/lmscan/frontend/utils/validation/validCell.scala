@@ -6,14 +6,11 @@ import scala.util.matching.Regex
 import Dom.{_hidden, isEqGet, yyyy_mm_dd_time, timeAgo}
 
 enum Cell:
-  case Image(data: Option[String])              extends Cell
-  case Head(data: String, css: String = "cell") extends Cell
-  case Any(data: String, css: String = "cell")  extends Cell
-  // case AGE(data: Option[Int])                                   extends Cell
-  case AGE(data: Option[Long]) extends Cell
-  // case DATE(data: Option[Int], css: String = "cell")            extends Cell
-  case DATE(data: Option[Long], css: String = "cell") extends Cell
-  // case BLOCK_NUMBER(data: (Option[String], Option[Int]))        extends Cell
+  case Image(data: Option[String])                              extends Cell
+  case Head(data: String, css: String = "cell")                 extends Cell
+  case Any(data: String, css: String = "cell")                  extends Cell
+  case AGE(data: Option[Long])                                  extends Cell
+  case DATE(data: Option[Long], css: String = "cell")           extends Cell
   case BLOCK_NUMBER(data: (Option[String], Option[Long]))       extends Cell
   case BLOCK_HASH(data: Option[String])                         extends Cell
   case ACCOUNT_HASH(data: Option[String], css: String = "cell") extends Cell
