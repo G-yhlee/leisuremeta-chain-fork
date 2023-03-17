@@ -13,9 +13,14 @@ object Title:
       div(
         `class` := s"type-2",
       )(
-        span(
-          onClick(PageMsg.PreUpdate(PageName.Blocks(1))),
-        )("More"),
+        {
+          model.curPage match
+            case PageName.DashBoard =>
+              span(
+                onClick(PageMsg.PreUpdate(PageName.Blocks(1))),
+              )("More")
+            case _ => div()
+        },
       ),
     )
   def tx = (model: Model) =>
