@@ -42,4 +42,13 @@ final case class Model(
 
     // block
     latestBlockNumber: String = "1",
+
+    // tx-list :: account-detail
+    // tx_list_data_of_account_detail: Option[String] = Some(""),
+    // tx_TotalPage_of_account_detail: Int,
+    // tx_list_Search_of_account_detail: String,
+
+    // tx-list :: block-detail
+
+    // tx-list :: nft-detail
 )

@@ -41,9 +41,15 @@ object gen:
             .map(data => plainStr(nftUri).contains(data))
             .contains(true) match
             case true => // 비디오 포맷
-              video(`class` := "nft-image p-10px", autoPlay, loop)(
+              video(
+                `class` := "nft-image p-10px",
+                autoPlay,
+                loop,
+                name := "media",
+              )(
                 source(
-                  src := s"${getOptionValue(nftUri, "-").toString()}",
+                  src    := s"${getOptionValue(nftUri, "-").toString()}",
+                  `type` := "video/mp4",
                 ),
               )
             case _ => // 이미지 포맷
