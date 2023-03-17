@@ -44,11 +44,17 @@ final case class Model(
     latestBlockNumber: String = "1",
 
     // tx-list :: account-detail
-    // tx_list_data_of_account_detail: Option[String] = Some(""),
-    // tx_TotalPage_of_account_detail: Int,
-    // tx_list_Search_of_account_detail: String,
+    tx_list_data_of_account_detail: Option[String] = Some(""),
+    tx_TotalPage_of_account_detail: Int = 1,
+    tx_list_Search_of_account_detail: String = "1",
 
     // tx-list :: block-detail
+    tx_list_data_of_block_detail: Option[String] = Some(""),
+    tx_TotalPage_of_block_detail: Int = 1,
+    tx_list_Search_of_block_detail: String = "1",
 
     // tx-list :: nft-detail
+    tx_list_data_of_nft_detail: Option[String] = Some(""),
+    tx_TotalPage_of_nft_detail: Int = 1,
+    tx_list_Search_of_nft_detail: String = "1",
 )

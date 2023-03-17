@@ -11,7 +11,9 @@ import io.leisuremeta.chain.lmscan.common.model.TransferHist
 
 object TxDetailTable:
   val view = (model: Model) =>
-    val data: TxDetail = TxDetailParser.decodeParser(model.txDetailData.get).getOrElse(new TxDetail)
+    val data: TxDetail = TxDetailParser
+      .decodeParser(model.txDetailData.get)
+      .getOrElse(new TxDetail)
     genView(model, data)
 
   val input = (data: List[String], isModal: Boolean) =>
@@ -53,11 +55,9 @@ object TxDetailTable:
     formatter.setRoundingMode(RoundingMode.FLOOR)
     formatter.setMaximumFractionDigits(18)
 
-    // val value = getOptionValue(data.value, 0.0).asInstanceOf[Double] / Math.pow(10, 18).toDouble
-    val value = getOptionValue(data.value, "0").toString().toDouble / Math.pow(10, 18).toDouble
-
-    // val value =
-    //   getOptionValue(data.value, "0.0").toDouble / Math.pow(10, 18).toDouble
+    val value = getOptionValue(data.value, "0").toString().toDouble / Math
+      .pow(10, 18)
+      .toDouble
 
     val formattedValue = formatter.format(value)
 
