@@ -25,19 +25,19 @@ object TransactionTable:
       case PageName.BlockDetail(_) =>
         div(`class` := "table-container")(
           Table.blockDetail_txtable(model),
-          Search.search_tx(model),
+          // Search.search_tx(model),
         )
 
       case PageName.AccountDetail(_) =>
         div(`class` := "table-container")(
           Table.accountDetail_txtable(model),
-          Search.search_tx(model),
+          // Search.search_tx(model),
         )
 
       case PageName.NftDetail(_) =>
         div(`class` := "table-container")(
           Table.nftDetail_txtable(model),
-          Search.search_tx(model),
+          // Search.search_tx(model),
         )
 
       case _ =>
