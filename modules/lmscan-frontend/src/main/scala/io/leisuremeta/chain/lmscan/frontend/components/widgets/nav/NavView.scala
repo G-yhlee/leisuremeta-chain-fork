@@ -55,12 +55,9 @@ object NavView:
         model.prevPage.toString().take(5), // TODO :: A
       )
   def view(model: Model): Html[Msg] =
-    // <div id="title"><span id="head"><img src="img/logo_w.png"></span></div>
     nav(`class` := "")(
       div(id := "title", onClick(PageMsg.PreUpdate(PageName.DashBoard)))(
         span(id := "head")(img(id := "head-logo")),
-        // span(id := "body")("LEISURE META BLOCK CHAIN"),
-        // span(id := "body")("LeisureMeta Chain"),
       ),
       div(
         id := "buttons",
