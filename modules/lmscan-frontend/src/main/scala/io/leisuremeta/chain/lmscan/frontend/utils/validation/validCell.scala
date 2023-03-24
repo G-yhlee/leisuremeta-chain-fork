@@ -149,6 +149,7 @@ object gen:
         case Cell.ACCOUNT_HASH(data, css) =>
           div(`class` := "cell type-3")(
             span(
+              // dataAttr("tooltip-text", accountHash_DETAIL(data)),
               onClick(
                 PageMsg.PreUpdate(
                   PageName.AccountDetail(
