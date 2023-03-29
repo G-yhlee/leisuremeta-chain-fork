@@ -50,7 +50,12 @@ object AccountDetailTable:
               gen.cell(
                 Cell.Head("Balance", "cell type-detail-head"),
                 Cell.Any(
-                  formattedBalance.toString() + " LM",
+                  // HOT.FIX 음수일때 0으로 처리
+                  {
+                    formattedBalance.toString().take(1) == "-" match
+                      case true => "0"
+                      case _    => formattedBalance.toString()
+                  } + " LM",
                   "cell type-detail-body",
                 ),
               ),
@@ -59,7 +64,12 @@ object AccountDetailTable:
               gen.cell(
                 Cell.Head("Value", "cell type-detail-head"),
                 Cell.Any(
-                  "$ " + formattedValue.toString(),
+                  // HOT.FIX 음수일때 0으로 처리
+                  "$ " + {
+                    formattedValue.toString().take(1) == "-" match
+                      case true => "0"
+                      case _    => formattedValue.toString()
+                  },
                   "cell type-detail-body",
                 ),
               ),
