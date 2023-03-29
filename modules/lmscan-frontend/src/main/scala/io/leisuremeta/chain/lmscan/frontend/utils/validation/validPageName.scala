@@ -35,11 +35,15 @@ object ValidPageName:
             PageName.NoPage
 
   def getPageString(search: String): PageName =
-    search.length() match
-      case 40 => PageName.AccountDetail(search.toString())
-      case 25 => PageName.NftDetail(search.toString())
-      case 64 => PageName.Page64(search.toString())
-      case _  => PageName.NoPage
+    search match
+      case "playnomm"    => PageName.AccountDetail(search.toString())
+      case "eth-gateway" => PageName.AccountDetail(search.toString())
+      case _ =>
+        search.length() match
+          case 40 => PageName.AccountDetail(search.toString())
+          case 25 => PageName.NftDetail(search.toString())
+          case 64 => PageName.Page64(search.toString())
+          case _  => PageName.NoPage
 
   def getPageFromStr(search: String): PageName =
     search match
