@@ -50,7 +50,7 @@ object BoardView:
               String
                 .format(
                   "%.0f",
-                  plainLong(Some(10986064)).toDouble / Math
+                  plainLong(data.totalTxSize).toDouble / Math
                     .pow(10, 3)
                     .toDouble,
                 ) + " GB",
