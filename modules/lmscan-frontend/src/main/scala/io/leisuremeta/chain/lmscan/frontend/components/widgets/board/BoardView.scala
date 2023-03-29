@@ -7,7 +7,7 @@ import io.leisuremeta.chain.lmscan.common.model.SummaryModel
 object Board:
   val LM_Price     = "LM PRICE"
   val Block_Number = "BLOCK NUMBER"
-  val Transactions = "24H TRANSACTIONS"
+  val Transactions = "TOTAL TRANSACTIONS"
   val Accounts     = "TOTAL ACCOUNTS"
 
 object BoardView:
@@ -47,12 +47,13 @@ object BoardView:
               Board.Transactions,
             ),
             div(`class` := "color-white font-bold")(
-              // getOptionValue(data.txCountInLatest24h, "-").toString(),
-              // String.format(
-              //   "%,d",
-              //   getOptionValue(data.txCountInLatest24h, "-").toString().toDouble,
-              // ),
-              plainStr(data.txCountInLatest24h),
+              String
+                .format(
+                  "%.0f",
+                  plainLong(Some(10986064)).toDouble / Math
+                    .pow(10, 3)
+                    .toDouble,
+                ) + " GB",
             ),
           ),
         ),

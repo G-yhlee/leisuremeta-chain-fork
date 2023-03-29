@@ -19,7 +19,7 @@ object V:
     getOptionValue(data, 0).asInstanceOf[Int].toString
 
   def plainLong(data: Option[Long]) =
-    getOptionValue(data, 0).asInstanceOf[Long].toString
+    getOptionValue(data, 0.toLong).asInstanceOf[Long].toString
 
   def hash10(data: Option[Any]) =
     getOptionValue(data, "-").toString().take(10) + "..."
