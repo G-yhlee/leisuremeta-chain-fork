@@ -3,6 +3,7 @@ import tyrian.Html.*
 import tyrian.*
 import V.*
 import io.leisuremeta.chain.lmscan.common.model.SummaryModel
+import io.leisuremeta.chain.lmscan.frontend.Log.log
 
 object Board:
   val LM_Price     = "LM PRICE"
@@ -47,13 +48,18 @@ object BoardView:
               Board.Transactions,
             ),
             div(`class` := "color-white font-bold")(
-              String
-                .format(
-                  "%.0f",
-                  plainLong(data.totalTxSize).toDouble / Math
-                    .pow(10, 3)
-                    .toDouble,
-                ) + " GB",
+              {
+                log("data.totalTxSize")
+                log(data.totalTxSize)
+                String
+                  .format(
+                    "%.3f",
+                    // plainLong(data.totalTxSize).toDouble / Math
+                    plainLong(
+                      Some(660927277.toLong),
+                    ).toDouble / (1024 * 1024 * 1024).toDouble,
+                  ) + " GB"
+              },
             ),
           ),
         ),
