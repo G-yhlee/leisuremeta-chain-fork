@@ -55,9 +55,11 @@ object BoardView:
                   .format(
                     "%.3f",
                     // plainLong(data.totalTxSize).toDouble / Math
-                    plainLong(
-                      Some(660927277.toLong),
-                    ).toDouble / (1024 * 1024 * 1024).toDouble,
+                    // plainLong(
+                    //   Some(660927277.toLong),
+                    //   Some(660927277.toLong),
+                    // ).toDouble / (1024 * 1024 * 1024).toDouble,
+                    data.totalTxSize.toDouble / (1024 * 1024 * 1024).toDouble,
                   ) + " GB"
               },
             ),
