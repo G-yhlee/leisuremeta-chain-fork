@@ -5,7 +5,7 @@ final case class SummaryModel(
     lmPrice: Option[Double] = None,
     blockNumber: Option[Long] = None,
     // txCountInLatest24h: Option[Long] = None,
-    totalTxSize: Option[Long] = None,
+    totalTxSize: Option[Double] = None,
     totalAccounts: Option[Long] = None,
     createdAt: Option[Long] = None,
 )

@@ -8,13 +8,21 @@ import io.leisuremeta.chain.lmscan.frontend.Log.log
 object Board:
   val LM_Price     = "LM PRICE"
   val Block_Number = "BLOCK NUMBER"
-  val Transactions = "TOTAL TRANSACTIONS"
+  val Transactions = "TOTAL DATA SIZE"
   val Accounts     = "TOTAL ACCOUNTS"
 
 object BoardView:
   def view(model: Model): Html[Msg] =
+
+    log("model.apiData.get")
+    log(model.apiData.get)
+
     val data: SummaryModel =
       ApiParser.decodeParser(model.apiData.get).getOrElse(new SummaryModel)
+
+    log(data)
+    log(data.totalTxSize)
+    // div()
 
     div(`class` := "board-area")(
       div(`class` := "board-list x")(
@@ -35,7 +43,9 @@ object BoardView:
             div(`class` := "font-16px color-white font-bold color-white")(
               Board.Block_Number,
             ),
-            div(`class` := "color-white font-bold")(model.latestBlockNumber),
+            div(`class` := "color-white font-bold")(
+              f"${model.latestBlockNumber.toLong}%,d",
+            ),
           ),
         ),
       ),
@@ -50,16 +60,16 @@ object BoardView:
             div(`class` := "color-white font-bold")(
               {
                 log("data.totalTxSize")
-                // log(data.totalTxSize)
+                log(data.totalTxSize)
                 String
                   .format(
                     "%.3f",
                     // plainLong(data.totalTxSize).toDouble / Math
-                    plainLong(
-                      Some(660927277.toLong),
-                    ).toDouble / (1024 * 1024 * 1024).toDouble,
+                    plainDouble(
+                      data.totalTxSize,
+                    ).toDouble / (1024 * 1024).toDouble,
                     // data.totalTxSize.toDouble / (1024 * 1024 * 1024).toDouble,
-                  ) + " GB"
+                  ) + " MB"
               },
             ),
           ),
@@ -72,7 +82,7 @@ object BoardView:
               Board.Accounts,
             ),
             div(`class` := "color-white font-bold")(
-              plainStr(data.totalAccounts),
+              f"${plainLong(data.totalAccounts).toLong}%,d",
               // "39,104",
             ),
           ),

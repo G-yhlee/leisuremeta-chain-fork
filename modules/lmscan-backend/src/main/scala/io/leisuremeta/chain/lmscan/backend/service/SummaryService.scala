@@ -17,9 +17,9 @@ object SummaryService:
           Some(s.id),
           Some(s.lmPrice),
           Some(s.blockNumber),
-          Some(s.txCountInLatest24h),
+          Some(s.totalTxSize),
           Some(s.totalAccounts),
           Some(s.createdAt),
-        )
+        ),
       )
     yield model
