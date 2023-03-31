@@ -1,4 +1,5 @@
 package io.leisuremeta.chain.lmscan.frontend
+import scala.util.chaining.*
 object V:
   def commaNumber = (value: String) =>
     String.format(
@@ -37,12 +38,20 @@ object V:
       case _ =>
         getOptionValue(data, "-").toString()
 
+  // hot-fix
   def txValue(data: Option[String]) =
     val res = String
       .format(
         "%.4f",
         (getOptionValue(data, "0.0")
           .asInstanceOf[String]
+          // 공백 문자열 예외처리 임시조치
+          // [버그리포트] https://github.com/orgs/leisuremeta/projects/1/views/1?pane=issue&itemId=24437589
+          .pipe(d =>
+            d match
+              case "" => "0.0"
+              case _  => d,
+          )
           .toDouble / Math.pow(10, 18).toDouble),
       )
     val sosu         = res.takeRight(5)

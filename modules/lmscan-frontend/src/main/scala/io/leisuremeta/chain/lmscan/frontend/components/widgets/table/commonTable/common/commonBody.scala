@@ -13,10 +13,11 @@ import io.leisuremeta.chain.lmscan.common.model.NftActivity
 import io.leisuremeta.chain.lmscan.common.model.BlockInfo
 import io.leisuremeta.chain.lmscan.common.model.TxInfo
 import io.leisuremeta.chain.lmscan.common.model.NftActivity
+import io.leisuremeta.chain.lmscan.frontend.Log.log
 
 object Body:
   def block = (payload: List[BlockInfo]) =>
-  // def block = (payload: List[Block]) =>
+    // def block = (payload: List[Block]) =>
     payload
       .map(v =>
         div(`class` := "row table-body")(
@@ -77,7 +78,24 @@ object Body:
         ),
       )
 
+  def accountDetail_txtable_copy = (payload: List[TxInfo]) =>
+    payload
+      .map(v =>
+        div(`class` := "row table-body")(
+          gen.cell(
+            Cell.TX_HASH(v.hash),
+            // Cell.PlainInt(v.blockNumber),
+            Cell.PlainLong(v.blockNumber),
+            Cell.AGE(v.createdAt),
+            Cell.ACCOUNT_HASH(v.signer),
+            // Cell.PlainStr(v.txType),
+            // Cell.PlainStr(v.tokenType),
+            Cell.Tx_VALUE2((v.tokenType, v.value, v.inOut)),
+          ),
+        ),
+      )
   def accountDetail_txtable = (payload: List[TxInfo]) =>
+    log(payload)
     payload
       .map(v =>
         div(`class` := "row table-body")(

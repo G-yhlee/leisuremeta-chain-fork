@@ -4,6 +4,7 @@ import tyrian.*
 import V.*
 import scala.util.matching.Regex
 import Dom.{_hidden, isEqGet, yyyy_mm_dd_time, timeAgo}
+import io.leisuremeta.chain.lmscan.frontend.Log.log
 
 enum Cell:
   case Image(data: Option[String])                              extends Cell
@@ -146,6 +147,7 @@ object gen:
                 case _ => txValue(value),
             ),
           )
+
         case Cell.ACCOUNT_HASH(data, css) =>
           div(`class` := "cell type-3")(
             span(
