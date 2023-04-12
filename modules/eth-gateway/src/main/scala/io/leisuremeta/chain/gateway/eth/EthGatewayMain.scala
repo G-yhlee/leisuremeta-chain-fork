@@ -180,7 +180,7 @@ object EthGatewayMain extends IOApp:
         json.getBytes,
         StandardOpenOption.CREATE,
         StandardOpenOption.WRITE,
-        StandardOpenOption.TRUNCATE_EXISTING,
+        StandardOpenOption.APPEND,
       )
     }
 
