@@ -9,6 +9,10 @@ import scodec.bits.ByteVector
 
 import codec.byte.{ByteDecoder, ByteEncoder}
 import datatype.{UInt256, UInt256Bytes}
+import cats.effect.IOApp
+import cats.effect.ExitCode
+import cats.effect.IO
+import io.leisuremeta.chain.lib.crypto.Hash.ops.toHash
 
 trait Hash[A]:
   def apply(a: A): Hash.Value[A]
@@ -16,6 +20,12 @@ trait Hash[A]:
     Hash.Value[B](apply(f(b)).toUInt256Bytes)
 
 object Hash:
+  // override def run(args: List[String]): IO[ExitCode] = 
+  //   for 
+  //     _ <- "0x18797fbf45ce8775cb794d76da7be26d1d651d0803427ce78fc884541b975a4f77e049f07a8a12b098b5a8a5b016d20b280a16bee2cd8400ffb1c1db101b4be9".getBytes().toUInt256Bytes.toBytes.toHex
+  //   yield (ExitCode.Success)
+
+
   def apply[A: Hash]: Hash[A] = summon
 
   opaque type Value[A] = UInt256Bytes
@@ -60,3 +70,5 @@ object Hash:
     val bytes = ByteEncoder[A].encode(a)
     val h     = ByteVector.view(CryptoOps.keccak256(bytes.toArray))
     Value[A](UInt256.from(h).toOption.get)
+
+  
