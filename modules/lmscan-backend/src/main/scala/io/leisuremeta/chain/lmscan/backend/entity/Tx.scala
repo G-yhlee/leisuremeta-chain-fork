@@ -18,4 +18,5 @@ final case class Tx(
 
     // amount: Double,
     subType: String,
+    display_yn: Boolean,
 )

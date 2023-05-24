@@ -43,6 +43,7 @@ object TransactionRepository extends CommonQuery:
         query[Tx]
           .sortBy(t => (t.blockNumber, t.eventTime))(Ord(Ord.desc, Ord.desc))
           .drop(offset)
+          .filter(t => t.display_yn == true)
           .take(sizePerRequest)
       }
 
