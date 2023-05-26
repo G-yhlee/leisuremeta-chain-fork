@@ -6,6 +6,7 @@ import io.leisuremeta.chain.lmscan.common.model.SummaryModel
 import io.leisuremeta.chain.lmscan.frontend.ModelPipe.*
 import io.leisuremeta.chain.lmscan.frontend.Log.log
 import Dom.*
+import scala.util.chaining.*
 import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import io.leisuremeta.chain.lmscan.common.model.BlockInfo
@@ -17,6 +18,34 @@ object Board:
   val Accounts     = "TOTAL ACCOUNTS"
 
 object BoardView:
+  def txValue(data: Option[String]) =
+    val res = String
+      .format(
+        "%.2f",
+        (getOptionValue(data, "0.0")
+          .asInstanceOf[String]
+          .toDouble / Math.pow(10, 18).toDouble),
+      )
+    val sosu         = res.takeRight(5)
+    val decimal      = res.replace(sosu, "")
+    val commaDecimal = String.format("%,d", decimal.toDouble)
+
+    res == "0.0000" match
+      case true =>
+        "-"
+      case false => commaDecimal + sosu
+
+  // 39,778,744.2590973952161391
+  // "39,778,744 LM"
+  def parseToNumber(strNum: String) =
+    //  strNum.toDouble() / 1_000_000_000_000
+    strNum.length() > 18 match
+      case true =>
+        String.format("%.0f", strNum.dropRight(18).toDouble)
+      case false => String.format("%.0f", strNum.toDouble)
+
+  def addComma(numberString: String) = f"${numberString.toLong}%,d"
+
   def view(model: Model): Html[Msg] =
     val data = get_PageResponseViewCase(model).board
 
@@ -50,7 +79,7 @@ object BoardView:
             div(`class` := "color-white font-bold")(
               plainStr(
                 current_ViewCase(model).blockInfo(0).number,
-              ),
+              ).pipe(addComma),
             ),
           ), {
             current_ViewCase(model).blockInfo(0) != new BlockInfo match
@@ -80,12 +109,24 @@ object BoardView:
                     ).toDouble / (1024 * 1024).toDouble,
                   ) + " MB"
 
-                plainStr(
-                  data.balance,
-                ).take(10)
+                // Some(
+                //   plainStr(
+                //     data.balance,
+                //   ),
+                // ).getOrElse("0.0").toDouble.floor.toString + " LM"
+                // plainDouble(
+                //   data.balance.map(d => d.toDouble),
+                // ).toDouble.floor.toString + " LM"
+
+                // plainStr(
+                //   data.balance,
+                // )
+
+                // txValue(data.balance)
+                parseToNumber(data.balance.getOrElse("0")).pipe(addComma)
 
                 // 39,778,744.2590973952161391
-                "39,778,744 LM"
+                // "39,778,744 LM"
               },
             ),
           ), {
@@ -103,7 +144,7 @@ object BoardView:
               Board.Accounts,
             ),
             div(`class` := "color-white font-bold")(
-              plainStr(data.totalAccounts),
+              plainStr(data.totalAccounts).pipe(addComma),
             ),
           ), {
             data != new SummaryModel match
