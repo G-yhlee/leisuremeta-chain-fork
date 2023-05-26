@@ -14,3 +14,6 @@ object BalanceRepository extends CommonQuery:
     val result = Source.fromURL(url).mkString
 
     EitherT.rightT(Some(result))
+
+  def getBalanceSimple =
+    Source.fromURL(url).mkString
