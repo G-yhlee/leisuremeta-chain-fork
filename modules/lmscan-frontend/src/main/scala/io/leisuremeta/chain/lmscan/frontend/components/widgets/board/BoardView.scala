@@ -35,8 +35,6 @@ object BoardView:
         "-"
       case false => commaDecimal + sosu
 
-  // 39,778,744.2590973952161391
-  // "39,778,744 LM"
   def parseToNumber(strNum: String) =
     //  strNum.toDouble() / 1_000_000_000_000
     strNum.length() > 18 match
@@ -98,36 +96,7 @@ object BoardView:
               Board.Transactions,
             ),
             div(`class` := "color-white font-bold")(
-              {
-                // log("data.totalTxSize")
-                // log(data.totalTxSize)
-                String
-                  .format(
-                    "%.3f",
-                    plainLong(
-                      data.totalTxSize,
-                    ).toDouble / (1024 * 1024).toDouble,
-                  ) + " MB"
-
-                // Some(
-                //   plainStr(
-                //     data.balance,
-                //   ),
-                // ).getOrElse("0.0").toDouble.floor.toString + " LM"
-                // plainDouble(
-                //   data.balance.map(d => d.toDouble),
-                // ).toDouble.floor.toString + " LM"
-
-                // plainStr(
-                //   data.balance,
-                // )
-
-                // txValue(data.balance)
-                parseToNumber(data.balance.getOrElse("0")).pipe(addComma)
-
-                // 39,778,744.2590973952161391
-                // "39,778,744 LM"
-              },
+              parseToNumber(data.balance.getOrElse("0")).pipe(addComma),
             ),
           ), {
             data != new SummaryModel match
