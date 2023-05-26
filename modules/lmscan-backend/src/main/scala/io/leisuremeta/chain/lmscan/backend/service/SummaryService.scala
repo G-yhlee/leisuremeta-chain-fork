@@ -5,6 +5,7 @@ import io.leisuremeta.chain.lmscan.common.model.SummaryModel
 import io.leisuremeta.chain.lmscan.backend.repository.SummaryRepository
 import cats.effect.kernel.Async
 import cats.data.EitherT
+import io.leisuremeta.chain.lmscan.backend.repository.BalanceRepository
 
 object SummaryService:
   def get[F[_]: Async]: EitherT[F, String, Option[SummaryModel]] =
@@ -21,3 +22,7 @@ object SummaryService:
         ),
       )
     yield model
+
+  def getBalance[F[_]: Async]: EitherT[F, String, Option[String]] =
+    for balance <- BalanceRepository.getBalance
+    yield balance

@@ -163,6 +163,17 @@ object BackendMain extends IOApp:
       result.value
     }
 
+  def totalBalance[F[_]: Async]: ServerEndpoint[Fs2Streams[F], F] =
+    ExploreApi.getTotalBalance.serverLogic { Unit =>
+      scribe.info(s"totalBalance")
+      val result = SummaryService.getBalance
+        .leftMap { (errMsg: String) =>
+          scribe.error(s"errorMsg: $errMsg")
+          (ExploreApi.ServerError(errMsg)).asLeft[ExploreApi.UserError]
+        }
+      result.value
+    }
+
   def explorerEndpoints[F[_]: Async]: List[ServerEndpoint[Fs2Streams[F], F]] =
     List(
       txPaging[F],
@@ -173,6 +184,7 @@ object BackendMain extends IOApp:
       nftDetail[F],
       // searchTargetType[F],
       summaryMain[F],
+      totalBalance[F],
     )
 
   def getServerResource[F[_]: Async]: Resource[F, Server] =

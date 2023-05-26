@@ -114,6 +114,12 @@ object ExploreApi:
     .in("main")
     .out(jsonBody[Option[SummaryModel]])
 
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  val getTotalBalance = baseEndpoint.get
+    .in("total")
+    .in("balance")
+    .out(jsonBody[Option[String]])
+
   // @SuppressWarnings(Array("org.wartremover.warts.Any"))
   // val getSearchTargetType = baseEndpoint.get
   //   .in("search")
