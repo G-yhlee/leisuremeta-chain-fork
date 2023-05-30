@@ -13,18 +13,36 @@ import io.circe.Json
 
 object PlaynommBalanceRepository:
 
-  val config = ConfigFactory.load()
-  val url    = config.getString("ctx.getBalanceapi_url")
+  val config   = ConfigFactory.load()
+  val url_dev  = config.getString("ctx.devChain_url")
+  val url_prod = config.getString("ctx.lmChain_url")
+  val toggle   = config.getString("ctx.url")
 
-  def getBalanceOption[F[_]: Async]: EitherT[F, String, Option[String]] =
-    val result = Source.fromURL(url).mkString
-    EitherT.rightT(Some(result))
+  val toggle_url = toggle.contains("prod") match
+    // 상용서버 => 상용체인
+    case true => url_prod
+    // 개발서버 => 개발체인
+    case _ => url_dev
 
-  def getBalance =
-    val balanceJson = Source.fromURL(url).mkString
-    parse(balanceJson)
+  def getBalance[F[_]: Async]: EitherT[F, String, Option[String]] =
+    val balanceJson = Source.fromURL(toggle_url).mkString
+    val parsed = parse(balanceJson)
       .getOrElse(Json.Null)
       .hcursor
-      .downField("result")
-      .as[String]
-      .getOrElse("")
+      .downField("LM")
+      .downField("totalAmount")
+      .as[BigDecimal]
+      .getOrElse(0)
+
+    EitherT.rightT(Some(s"$parsed"))
+
+  def getBalance =
+    val balanceJson = Source.fromURL(toggle_url).mkString
+    val parsed = parse(balanceJson)
+      .getOrElse(Json.Null)
+      .hcursor
+      .downField("LM")
+      .downField("totalAmount")
+      .as[BigDecimal]
+      .getOrElse(BigDecimal(0))
+    parsed

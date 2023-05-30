@@ -120,6 +120,18 @@ object ExploreApi:
     .in("balance")
     .out(jsonBody[Option[String]])
 
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  val getValanceFromChainDev = baseEndpoint.get
+    .in("dev")
+    .in("chain")
+    .out(jsonBody[Option[String]])
+
+  @SuppressWarnings(Array("org.wartremover.warts.Any"))
+  val getValanceFromChainProd = baseEndpoint.get
+    .in("prod")
+    .in("chain")
+    .out(jsonBody[Option[String]])
+
   // @SuppressWarnings(Array("org.wartremover.warts.Any"))
   // val getSearchTargetType = baseEndpoint.get
   //   .in("search")

@@ -42,6 +42,7 @@ import sttp.tapir.server.armeria.TapirService
 import sttp.tapir.server.armeria.cats.ArmeriaCatsServerOptions
 import sttp.tapir.server.interceptor.cors.CORSInterceptor
 import sttp.tapir.server.interceptor.cors.CORSConfig
+import io.leisuremeta.chain.lmscan.backend.repository.PlaynommBalanceRepository
 
 object BackendMain extends IOApp:
 
@@ -173,6 +174,16 @@ object BackendMain extends IOApp:
         }
       result.value
     }
+  def playnommBalance[F[_]: Async]: ServerEndpoint[Fs2Streams[F], F] =
+    ExploreApi.getValanceFromChainDev.serverLogic { Unit =>
+      scribe.info(s"totalBalance")
+      val result = TempService.getBalance
+        .leftMap { (errMsg: String) =>
+          scribe.error(s"errorMsg: $errMsg")
+          (ExploreApi.ServerError(errMsg)).asLeft[ExploreApi.UserError]
+        }
+      result.value
+    }
 
   def explorerEndpoints[F[_]: Async]: List[ServerEndpoint[Fs2Streams[F], F]] =
     List(
@@ -185,6 +196,7 @@ object BackendMain extends IOApp:
       // searchTargetType[F],
       summaryMain[F],
       totalBalance[F],
+      playnommBalance[F],
     )
 
   def getServerResource[F[_]: Async]: Resource[F, Server] =
