@@ -42,7 +42,10 @@ object BoardView:
         String.format("%.0f", strNum.dropRight(18).toDouble)
       case false => String.format("%.0f", strNum.toDouble)
 
-  def addComma(numberString: String) = f"${numberString.toLong}%,d"
+  def addComma(numberString: String) =
+    numberString match
+      case "-" => "-"
+      case _   => f"${numberString.toLong}%,d"
 
   def view(model: Model): Html[Msg] =
     val data = get_PageResponseViewCase(model).board
