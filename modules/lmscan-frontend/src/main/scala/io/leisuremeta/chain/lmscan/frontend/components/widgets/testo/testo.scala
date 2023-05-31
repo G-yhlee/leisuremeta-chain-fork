@@ -1,19 +1,22 @@
 package io.leisuremeta.chain.lmscan.frontend
 import tyrian.Html.*
 import tyrian.*
-import V.*
-import io.leisuremeta.chain.lmscan.common.model.SummaryModel
-import io.leisuremeta.chain.lmscan.frontend.ModelPipe.*
-import io.leisuremeta.chain.lmscan.frontend.Log.log
-import Dom.*
-import org.scalajs.dom
-import org.scalajs.dom.HTMLElement
-import io.leisuremeta.chain.lmscan.common.model.BlockInfo
-import org.scalajs.dom.window
+import scala.util.chaining.*
+import TestoLogic.*
+import TestoSample.*
 
 object TestoView:
   def view(model: Model): Html[Msg] =
     div(`class` := s"testo")(
       h1("testo page"),
-      div("asd"),
+      div({
+        Map(
+          "str2int"  -> strInt.pipe(str2Int).pipe(any2Str),
+          "str2Long" -> strInt.pipe(str2Long).pipe(any2Str),
+          "sample1"  -> sample1,
+          // "str2int" -> str.pipe(str2Int).pipe(x2Str),
+          // "str2int" -> str.pipe(str2Int).pipe(x2Str),
+        )("sample1")
+
+      }),
     )
