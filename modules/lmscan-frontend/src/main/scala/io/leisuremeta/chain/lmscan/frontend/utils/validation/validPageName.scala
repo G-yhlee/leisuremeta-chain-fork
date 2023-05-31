@@ -153,6 +153,7 @@ object ValidPageName:
           url = s"account/${hash}",
           pubs = List(
             PubCase.AccountDetailPub(hash = hash),
+            new PubCase.BoardPub,
             PubCase.TxPub(
               page = 1,
               accountAddr = hash,
