@@ -15,7 +15,8 @@ object Board:
   val LM_Price     = "LM PRICE"
   val Block_Number = "BLOCK NUMBER"
   val Transactions = "TOTAL BALANCE"
-  val Accounts     = "TOTAL ACCOUNTS"
+  // val Transactions = "TOTAL DATA SIZE"
+  val Accounts = "TOTAL ACCOUNTS"
 
 object BoardView:
   def txValue(data: Option[String]) =
@@ -99,7 +100,18 @@ object BoardView:
               Board.Transactions,
             ),
             div(`class` := "color-white font-bold")(
-              parseToNumber(data.balance.getOrElse("0")).pipe(addComma),
+              {
+
+                // String
+                //   .format(
+                //     "%.3f",
+                //     plainLong(
+                //       data.totalTxSize,
+                //     ).toDouble / (1024 * 1024).toDouble,
+                //   ) + " MB"
+
+                parseToNumber(data.balance.getOrElse("0")).pipe(addComma)
+              },
             ),
           ), {
             data != new SummaryModel match
