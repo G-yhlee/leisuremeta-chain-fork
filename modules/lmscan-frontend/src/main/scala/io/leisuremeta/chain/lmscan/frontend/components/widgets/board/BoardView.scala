@@ -14,9 +14,9 @@ import io.leisuremeta.chain.lmscan.common.model.BlockInfo
 object Board:
   val LM_Price     = "LM PRICE"
   val Block_Number = "BLOCK NUMBER"
-  val Transactions = "TOTAL BALANCE"
-  // val Transactions = "TOTAL DATA SIZE"
-  val Accounts = "TOTAL ACCOUNTS"
+  // val Transactions = "TOTAL BALANCE"
+  val Transactions = "TOTAL DATA SIZE"
+  val Accounts     = "TOTAL ACCOUNTS"
 
 object BoardView:
   def txValue(data: Option[String]) =
@@ -102,15 +102,15 @@ object BoardView:
             div(`class` := "color-white font-bold")(
               {
 
-                // String
-                //   .format(
-                //     "%.3f",
-                //     plainLong(
-                //       data.totalTxSize,
-                //     ).toDouble / (1024 * 1024).toDouble,
-                //   ) + " MB"
+                String
+                  .format(
+                    "%.3f",
+                    plainLong(
+                      data.totalTxSize,
+                    ).toDouble / (1024 * 1024).toDouble,
+                  ) + " MB"
 
-                parseToNumber(data.balance.getOrElse("0")).pipe(addComma)
+                // parseToNumber(data.balance.getOrElse("0")).pipe(addComma)
               },
             ),
           ), {
