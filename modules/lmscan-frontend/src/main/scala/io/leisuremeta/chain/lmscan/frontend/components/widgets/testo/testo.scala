@@ -15,4 +15,5 @@ object TestoView:
   def view(model: Model): Html[Msg] =
     div(`class` := s"testo")(
       h1("testo page"),
+      div("asd"),
     )
