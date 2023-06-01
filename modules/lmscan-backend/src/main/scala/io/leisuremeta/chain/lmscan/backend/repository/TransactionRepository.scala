@@ -86,6 +86,7 @@ object TransactionRepository extends CommonQuery:
           .filter(t =>
             t.fromAddr == lift(addr) || t.toAddr.contains(lift(addr)),
           )
+          .filter(t => t.display_yn == true)
           .sortBy(t => (t.blockNumber, t.eventTime))(Ord(Ord.desc, Ord.desc))
           .drop(offset)
           .take(sizePerRequest)
@@ -116,6 +117,7 @@ object TransactionRepository extends CommonQuery:
 
         query[Tx]
           .filter(t => t.blockHash == lift(blockHash))
+          .filter(t => t.display_yn == true)
           .sortBy(t => (t.blockNumber, t.eventTime))(Ord(Ord.desc, Ord.desc))
           .drop(offset)
           .take(sizePerRequest)
