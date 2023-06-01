@@ -20,14 +20,10 @@ object AccountDetailTable:
 
   val genView = (model: Model, data: AccountDetail, apiData: SummaryModel) =>
     val lmPrice =
-      Math.floor(
-        getOptionValue(apiData.lmPrice, 0.toDouble).asInstanceOf[Double] * 10000,
-      ) / 10000
-      // model.lmprice
+      model.lmprice
     val balance = getOptionValue[BigDecimal](data.balance, 0)
       .asInstanceOf[BigDecimal] / Math.pow(10, 18).toDouble
     val value = lmPrice * balance
-    // val value   = Math.floor((lmPrice * balance) * 10000) / 10000
 
     val formatter = java.text.NumberFormat.getNumberInstance()
     formatter.setRoundingMode(RoundingMode.FLOOR)

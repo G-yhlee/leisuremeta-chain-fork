@@ -185,7 +185,7 @@ object gen:
                     name = PageCase.AccountDetail().name,
                     url = s"account/${plainStr(hash)}",
                     pubs = List(
-                      PubCase.BoardPub(1, "", SummaryModel()),
+                      // PubCase.BoardPub(1, "", SummaryModel()),
                       PubCase.AccountDetailPub(hash = plainStr(hash)),
                       PubCase.TxPub(
                         page = 1,
