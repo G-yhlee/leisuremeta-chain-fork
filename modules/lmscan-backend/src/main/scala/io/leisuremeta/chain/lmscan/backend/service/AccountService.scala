@@ -30,25 +30,6 @@ object AccountService:
         case Some(x) =>
           val detail = AccountDetail(
             Some(x.address),
-            // Some({
-            //   address match
-            //     case "playnomm" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "223d8c6e3f918a8128527851ed2ed9dd565a919a" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "reward-activity" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "eth-gateway" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "creator-reward-posting" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "creator-reward-activity" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case "reward-nft" =>
-            //       PlaynommBalanceRepository.getBalance
-            //     case _ => x.balance
-
-            // }),
             Some(x.balance),
             Some(x.amount),
             Some(page.payload),
