@@ -84,6 +84,6 @@ object PageView:
             },
           ),
           PopupView.view(model),
-          // TestoView.view(model),
+          TestoView.view(model),
         )
       case _: Boolean => TestoView.view(model)

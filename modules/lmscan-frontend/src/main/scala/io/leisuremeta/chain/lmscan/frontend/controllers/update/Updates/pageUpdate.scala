@@ -143,7 +143,9 @@ object PageUpdate:
               ),
             )
             .pipe(in_SummaryModel_pub(model))
+            // .tap(log2("lmprice - get"))
             .pipe(d => Math.floor(d * 10000) / 10000),
+          // .tap(log2("lmprice - final")),
         ),
         Cmd.None,
       )

@@ -32,8 +32,23 @@ object TestoLogic:
 
   def number2sosu(n: Int)(targetnum: Int) = targetnum / Math.pow(10, n)
 
+  def sosu_removeAfter(n: Int)(targetnum: Double) =
+    // 다른방식으로 대체 가능
+    Math.floor(plainDouble * Math.pow(10, n)) / Math.pow(10, n)
+
 object TestoSample:
   import TestoLogic.*
   // 1234567891 => 12345.67891
   val sample1 = plainInt.pipe(number2sosu(5)).pipe(any2Str)
   val sample2 = plainInt.pipe(any2Option)
+
+  // 0.0283 USDT
+  // 0.02839628 =>  0.0283
+
+  // ceil 올림
+  // round 반올림
+  // floor 내림
+
+  // 12345.67891 -> 12345.6789 :: 소수점 4자리까지 자르기(내림)
+  // val sample3 = (Math.floor(plainDouble * 10000) / 10000).pipe(any2Str)
+  val sample3 = plainDouble.pipe(sosu_removeAfter(1)).pipe(any2Str)
