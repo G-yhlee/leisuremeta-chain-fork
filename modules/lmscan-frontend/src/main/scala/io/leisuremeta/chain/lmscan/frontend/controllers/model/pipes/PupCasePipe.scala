@@ -13,6 +13,12 @@ object PupCasePipe:
       case PubCase.BoardPub(page, _, _)       => page
       case _                                  => 1
 
+  def in_SummaryModel_pub(model: Model)(pubCase: PubCase) =
+    pubCase match
+      case PubCase.BoardPub(_, _, pub_m2) =>
+        pub_m2.lmPrice.getOrElse(model.lmprice)
+      case _ => model.lmprice
+
   def in_pub_m1(pubCase: PubCase) =
     pubCase match
       case PubCase.BlockPub(_, _, pub_m1, _)      => pub_m1

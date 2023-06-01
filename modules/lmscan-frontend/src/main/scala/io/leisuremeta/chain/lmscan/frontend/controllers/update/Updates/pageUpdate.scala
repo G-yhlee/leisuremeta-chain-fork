@@ -11,6 +11,7 @@ import io.leisuremeta.chain.lmscan.frontend.ModelPipe.*
 import io.leisuremeta.chain.lmscan.frontend.PupCasePipe.in_Page
 import io.leisuremeta.chain.lmscan.frontend.Log.*
 import io.leisuremeta.chain.lmscan.frontend.PupCasePipe.getPubCase
+import io.leisuremeta.chain.lmscan.frontend.PupCasePipe.in_SummaryModel_pub
 
 object PageUpdate:
   def update(model: Model): PageMsg => (Model, Cmd[IO, Msg]) =
@@ -54,6 +55,13 @@ object PageUpdate:
                   pageCase = page,
                 ),
               ),
+              lmprice =
+                page
+                  .pipe(in_PubCases)
+                  .pipe(getPubCase[PubCase.BoardPub])
+                  .pipe(_.getOrElse(PubCase.BoardPub()))
+                  .pipe(in_SummaryModel_pub(model))
+                111.1283,
             ),
             Cmd.Batch(
               in_PubCases(page).map(pub =>

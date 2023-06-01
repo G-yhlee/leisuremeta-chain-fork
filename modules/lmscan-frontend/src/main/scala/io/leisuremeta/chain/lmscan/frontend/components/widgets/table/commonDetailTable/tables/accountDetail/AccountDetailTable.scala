@@ -9,6 +9,7 @@ import java.math.RoundingMode
 import io.leisuremeta.chain.lmscan.common.model.SummaryModel
 import io.leisuremeta.chain.lmscan.common.model.AccountDetail
 import io.leisuremeta.chain.lmscan.frontend.ModelPipe.*
+import io.leisuremeta.chain.lmscan.frontend.Log.log2
 
 object AccountDetailTable:
   val view = (model: Model) =>
@@ -18,18 +19,20 @@ object AccountDetailTable:
     genView(model, data, apiData)
 
   val genView = (model: Model, data: AccountDetail, apiData: SummaryModel) =>
-    val lmPrice = Math.floor(
-      getOptionValue(apiData.lmPrice, 0.toDouble).asInstanceOf[Double] * 10000,
-    ) / 10000
+    val lmPrice =
+      Math.floor(
+        getOptionValue(apiData.lmPrice, 0.toDouble).asInstanceOf[Double] * 10000,
+      ) / 10000
+      // model.lmprice
     val balance = getOptionValue[BigDecimal](data.balance, 0)
       .asInstanceOf[BigDecimal] / Math.pow(10, 18).toDouble
-    val value = (lmPrice * balance)
+    val value = lmPrice * balance
     // val value   = Math.floor((lmPrice * balance) * 10000) / 10000
 
     val formatter = java.text.NumberFormat.getNumberInstance()
     formatter.setRoundingMode(RoundingMode.FLOOR)
 
-    formatter.setMaximumFractionDigits(18)
+    formatter.setMaximumFractionDigits(4)
     val formattedBalance = formatter.format(balance)
 
     formatter.setMaximumFractionDigits(4)

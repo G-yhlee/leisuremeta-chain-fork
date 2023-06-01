@@ -21,6 +21,7 @@ object ValidPageName:
               name = PageCase.AccountDetail().name,
               url = s"account/${search}",
               pubs = List(
+                PubCase.BoardPub(),
                 PubCase.AccountDetailPub(hash = search),
                 PubCase.TxPub(
                   page = 1,
@@ -34,6 +35,7 @@ object ValidPageName:
               name = PageCase.AccountDetail().name,
               url = s"account/${search}",
               pubs = List(
+                PubCase.BoardPub(),
                 PubCase.AccountDetailPub(hash = search),
                 PubCase.TxPub(
                   page = 1,
@@ -58,6 +60,7 @@ object ValidPageName:
               name = PageCase.AccountDetail().name,
               url = s"account/${search}",
               pubs = List(
+                PubCase.BoardPub(),
                 PubCase.AccountDetailPub(hash = search),
                 PubCase.TxPub(
                   page = 1,

@@ -16,4 +16,5 @@ final case class Model(
     block_current_page: String = "1",
     pageLimit: Int = 50,
     popup: Boolean = false,
+    lmprice: Double = 0.0,
 )
