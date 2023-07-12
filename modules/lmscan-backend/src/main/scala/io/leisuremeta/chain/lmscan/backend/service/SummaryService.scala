@@ -16,9 +16,9 @@ object SummaryService:
           Some(s.id),
           Some(s.lmPrice),
           Some(s.blockNumber),
-          Some(s.totalTxSize),
           Some(s.totalAccounts),
           Some(s.createdAt),
+          Some(s.totalTxSize),
           Some(BalanceRepository.getBalance),
         ),
       )
