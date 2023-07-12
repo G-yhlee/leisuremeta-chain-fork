@@ -23,7 +23,3 @@ object SummaryService:
         ),
       )
     yield model
-
-  def getBalance[F[_]: Async]: EitherT[F, String, Option[String]] =
-    for balance <- BalanceRepository.getBalanceOption
-    yield balance
