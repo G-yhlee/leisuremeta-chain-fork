@@ -12,5 +12,5 @@ final case class NftFileModel(
     creator: Option[String] = None,
     eventTime: Option[Long] = None,
     createdAt: Option[Long] = None,
-    owner: Option[String] = None,
+    // owner: Option[String] = None,
 )

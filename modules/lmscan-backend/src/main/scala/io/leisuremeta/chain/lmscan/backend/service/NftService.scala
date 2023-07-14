@@ -47,7 +47,7 @@ object NftService:
           Some(nftFile.creator),
           Some(nftFile.eventTime),
           Some(nftFile.createdAt),
-          Some(nftFile.owner),
-        )
+          // Some(nftFile.owner),
+        ),
       )
     yield Some(NftDetail(nftFile, Some(activities)))
