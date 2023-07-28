@@ -121,6 +121,11 @@ object TransactionService:
       )
     }
 
+  def countTotalTx[F[_]: Async] =
+    for cnt <- TransactionRepository.countTotalTx
+      //   txInfo = convertToInfoForAccount(page.payload, address)
+    yield Some(cnt)
+
   def convertToInfoForAccount(txs: Seq[Tx], address: String): Seq[TxInfo] =
     txs.map { tx =>
       val latestOutValOpt = tx.outputVals match
